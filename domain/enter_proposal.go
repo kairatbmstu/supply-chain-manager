@@ -1,0 +1,2 @@
+type EnterProposal struct {
+}

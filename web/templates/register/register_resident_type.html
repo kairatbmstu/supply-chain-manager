@@ -1,0 +1,17 @@
+{{ template "header" }}
+    <div id="container">
+
+        
+
+        <div style="max-width: 530px;  margin: 100px auto auto auto; ">
+            <h1>Регистрация в «Магнум»</h1>
+        </div>
+
+        <div style="max-width: 530px;  margin: 100px auto auto auto; font-size: 20px;">
+            <form method="POST" action="/register/resident_type">
+                <button type="submit" name="resident_type" value="resident" style="margin-bottom: 20px;" class="btn btn-primary">Я Резидент Республики Казахстан</button>
+                <button type="submit" name="resident_type" value="non_resident" class="btn btn-primary">Я не являюсь Резидентом Республики Казахстан</button>
+            </form>
+        </div>
+    </div>    
+{{ template "footer" }}
