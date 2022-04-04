@@ -17,7 +17,6 @@ type LoginController struct {
 }
 
 func (l LoginController) GetLoginPage(c *gin.Context) {
-
 	c.HTML(http.StatusOK, "login.html", gin.H{})
 }
 
@@ -29,11 +28,18 @@ func (l LoginController) PostLogin(c *gin.Context) {
 		log.Println(loginForm)
 		if strings.EqualFold(loginForm.Username, "admin") && strings.EqualFold(loginForm.Password, "123456") {
 
-			var user dto.UserDTO
-			session.Set("user", &user)
+			user := dto.UserDTO{
+				Email:    loginForm.Username,
+				Username: loginForm.Username,
+				Password: loginForm.Password,
+			}
+
+			session.Set("user", user)
+			session.Set("Username", loginForm.Username)
+			session.Set("Password", loginForm.Password)
 			session.Save()
 
-			c.HTML(http.StatusOK, "index.html", gin.H{})
+			c.Redirect(http.StatusFound, "/")
 		} else {
 			c.HTML(http.StatusOK, "login.html", gin.H{})
 		}

@@ -1,0 +1,18 @@
+{{ template "header" }}
+<script src="js/login.js" crossorigin="anonymous"></script>
+   
+    <div id="container">
+        <h1>Magnum</h1>
+
+        <div>
+            {{ .email }}
+        </div>
+        <div>
+            {{ .username }}    
+        </div>
+        <div>
+            {{ .password }} 
+        </div>
+
+     </div>
+{{ template "footer" }}

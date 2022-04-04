@@ -227,9 +227,6 @@ type Region struct {
 	NameEn     string
 }
 
-//DeliveryConditions   PackageType  BarcodeMask  Country  Color  TNVD
-//PackageType   ChildWeight  StorageAndTransportationConditions  DeliveryConditions
-
 type Category struct {
 	ID            int
 	NameKz        string
