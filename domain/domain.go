@@ -42,8 +42,8 @@ type Role struct {
 }
 
 type Organization struct {
-	ID         int64
-	ExternalId int64
+	ID         int
+	ExternalId int
 	Bin        string
 	NameRu     string
 	NameKz     string

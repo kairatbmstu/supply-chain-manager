@@ -35,24 +35,24 @@ type RoleDTO struct {
 }
 
 type OrganizationDTO struct {
-	id         int64
-	externalId int64
-	bin        string
-	nameRu     string
-	nameKz     string
-	nameEn     string
-	isResident bool
-	blocked    bool
-	corpPhone  string
-	contactFio string
-	website    string
-	gln        string
-	isStm      bool
-	isNds      bool
-	iban       string
-	bic        string
-	kbeCode    string
-	address    string
+	ID         int64
+	ExternalId int64
+	Bin        string
+	NameRu     string
+	NameKz     string
+	NameEn     string
+	IsResident bool
+	Blocked    bool
+	CorpPhone  string
+	ContactFio string
+	Website    string
+	Gln        string
+	IsStm      bool
+	IsNds      bool
+	IBAN       string
+	Bic        string
+	KbeCode    string
+	Address    string
 	FormOfLaw  FormOfLawDTO
 	KBE        KBEDTO
 }
