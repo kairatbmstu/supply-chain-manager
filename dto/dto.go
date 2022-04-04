@@ -20,3 +20,9 @@ type RegistrationCommand struct {
 	Password              string
 	ConfirmationPassword  string
 }
+
+type UserDTO struct {
+	Username string
+	Email    string
+	Password string
+}

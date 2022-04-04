@@ -21,27 +21,12 @@ func main() {
 			"title": "Users",
 		})
 	})
+
+	router.GET("/login", controller.LoginControllerInstance.GetLoginPage)
 	router.GET("/register/resident_type", controller.RegistrationControllerInstance.GetRegistrationType)
 	router.POST("/register/resident_type", controller.RegistrationControllerInstance.PostRegistrationType)
 	router.GET("/register/resident_details", controller.RegistrationControllerInstance.GetResidentDetails)
 	router.POST("/register/resident_details", controller.RegistrationControllerInstance.PostResidentDetails)
-
-	router.GET("/hello", func(c *gin.Context) {
-		session := sessions.Default(c)
-
-		if session.Get("hello") != "world" {
-			session.Set("hello", "world")
-			session.Save()
-		}
-
-		c.JSON(200, gin.H{"hello": session.Get("hello")})
-	})
-
-	router.GET("/hello2", func(c *gin.Context) {
-		session := sessions.Default(c)
-
-		c.JSON(200, gin.H{"hello": session.Get("hello")})
-	})
 
 	router.Run(":8080")
 }
