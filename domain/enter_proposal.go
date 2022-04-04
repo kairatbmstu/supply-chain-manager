@@ -1,4 +1,7 @@
 package domain
 
-type EnterProposal struct {
+type EntryProposal struct {
+	ProductItem []ProductItem
 }
+
+type EntryProposalStatus string

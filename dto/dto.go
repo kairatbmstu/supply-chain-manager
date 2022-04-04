@@ -1,7 +1,5 @@
 package dto
 
-import "time"
-
 type RegistrationCommand struct {
 	ResidentType          string
 	FormOfLawCode         string
@@ -27,20 +25,6 @@ type UserDTO struct {
 	Username string
 	Email    string
 	Password string
-}
-
-type ProductItemDTO struct {
-	Id                     int64
-	StatusChangeDate       time.Time
-	PriceExcludingVAT      float64
-	VatRate                float64
-	DiscountFromBasicPrice float64
-	MarginalTradeMarkup    float64
-	Currency               string
-	PriceWithVAT           float64
-	Product                ProductDTO
-	ProductItemStatus      string
-	Region                 RegionDTO
 }
 
 type RoleDTO struct {

@@ -1,52 +1,11 @@
 package domain
 
-import "time"
-
 type Currency string
 
 const (
 	KZT Currency = "KZT"
 	USD Currency = "USD"
 	EUR Currency = "EUR"
-)
-
-type ProductItem struct {
-	Id                     int64
-	StatusChangeDate       time.Time
-	PriceExcludingVAT      float64
-	VatRate                float64
-	DiscountFromBasicPrice float64
-	MarginalTradeMarkup    float64
-	Currency               Currency
-	PriceWithVAT           float64
-	Product                Product
-	ProductItemStatus      ProductItemStatus
-	Region                 Region
-}
-
-type ProductItemStatus string
-
-const (
-	ProductItemStatus_Draft             string = "draft"
-	ProductItemStatus_ProcessingCM      string = "processing_cm"
-	ProductItemStatus_ApprovedByCM      string = "approved_by_cm"
-	ProductItemStatus_ProcessingRM      string = "processing_rm"
-	ProductItemStatus_ApprovedByRM      string = "approved_by_rm"
-	ProductItemStatus_FullyApprovedInCP string = "fully_approved_in_cp"
-
-	ProductItemStatus_ReadyForEnterAssortiment string = "ready_for_enter_in_assortiment"
-	ProductItemStatus_ProcessingBUCP           string = "processing_bucp"
-	ProductItemStatus_ApprovedByBUCP           string = "approved_by_bucp"
-	ProductItemStatus_ProcessingOUKD           string = "processing_oukd"
-	ProductItemStatus_ApprovedByOUKD           string = "approved_by_oukd"
-	ProductItemStatus_FullyApprovedInEP        string = "fully_approved_in_cp"
-
-	ProductItemStatus_ProcessingEnter         string = "approved_by_oukd" // "Ожидает ввода"
-	ProductItemStatus_EnteredInMagnum         string = "approved_by_oukd" // "Введен в ассортимент"
-	ProductItemStatus_AssortimentEntryDelayed string = "approved_by_oukd" // "Ввод в АМ отложен"
-	ProductItemStatus_Closed                  string = "approved_by_oukd" // Выведен
-	ProductItemStatus_Blocked                 string = "approved_by_oukd" // Заблокирован
-	ProductItemStatus_AwaitingWithdraw                                    // Ожидает вывода
 )
 
 type CommercialProposalStatus string
@@ -60,12 +19,6 @@ const (
 	CommercialProposalStatus_FullyApproved string = "fully_approved"
 )
 
-type EntryProposal struct {
-	ProductItem []ProductItem
-}
-
-type EntryProposalStatus string
-
 const (
 	EntryProposalStatus_Draft          string = "draft"
 	EntryProposalStatus_ProcessingBUCP string = "processing_bucp"
@@ -74,15 +27,6 @@ const (
 	EntryProposalStatus_ApprovedByOUKD string = "approved_by_oukd"
 	EntryProposalStatus_FullyApproved  string = "fully_approved"
 )
-
-type ProductField struct {
-	ID          int
-	FieldCode   string
-	FieldNameKz string
-	FieldNameRu string
-	FieldNameEn string
-	SubCategory SubCategory
-}
 
 type User struct {
 	Username string
@@ -98,24 +42,23 @@ type Role struct {
 }
 
 type Organization struct {
-	id         int64
-	externalId int64
-	bin        string
-	nameRu     string
-	nameKz     string
-	nameEn     string
-	isResident bool
-	blocked    bool
-	corpPhone  string
-	contactFio string
-	website    string
-	gln        string
-	isStm      bool
-	isNds      bool
-	iban       string
-	bic        string
-	kbeCode    string
-	address    string
+	ID         int64
+	ExternalId int64
+	Bin        string
+	NameRu     string
+	NameKz     string
+	NameEn     string
+	IsResident bool
+	Blocked    bool
+	CorpPhone  string
+	ContactFio string
+	Website    string
+	Gln        string
+	IsStm      bool
+	IsNds      bool
+	Iban       string
+	Bic        string
+	Address    string
 	FormOfLaw  FormOfLaw
 	KBE        KBE
 }
