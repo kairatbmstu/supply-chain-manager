@@ -17,27 +17,34 @@ type LoginController struct {
 }
 
 func (l LoginController) GetLoginPage(c *gin.Context) {
+	session := sessions.Default(c)
+	log.Println(" GET /login ")
+	log.Println("sessionId: ", session.ID())
 	c.HTML(http.StatusOK, "login.html", gin.H{})
 }
 
 func (l LoginController) PostLogin(c *gin.Context) {
 	session := sessions.Default(c)
+	log.Println(" POST /login ")
+	log.Println("sessionId: ", session.ID())
 	var loginForm forms.LoginForm
 
 	if c.ShouldBind(&loginForm) == nil {
 		log.Println(loginForm)
 		if strings.EqualFold(loginForm.Username, "admin") && strings.EqualFold(loginForm.Password, "123456") {
 
-			user := dto.UserDTO{
+			userDto := dto.UserDTO{
 				Email:    loginForm.Username,
 				Username: loginForm.Username,
 				Password: loginForm.Password,
 			}
 
-			session.Set("user", user)
-			session.Set("Username", loginForm.Username)
-			session.Set("Password", loginForm.Password)
-			session.Save()
+			session.Set("user", userDto)
+			err := session.Save()
+			if err != nil {
+				log.Println("error : ", err)
+				c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			}
 
 			c.Redirect(http.StatusFound, "/")
 		} else {

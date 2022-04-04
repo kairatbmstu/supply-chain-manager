@@ -1,7 +1,10 @@
 package main
 
 import (
+	"encoding/gob"
+
 	"example.com/m/v2/controller"
+	"example.com/m/v2/dto"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -10,6 +13,10 @@ import (
 func main() {
 	router := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
+	store.Options(sessions.Options{MaxAge: 60 * 60 * 24})
+
+	gob.Register(dto.UserDTO{})
+
 	router.Use(sessions.Sessions("mysession", store))
 	router.Static("/css", "web/css")
 	router.Static("/js", "web/js")
