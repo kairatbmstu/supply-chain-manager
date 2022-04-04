@@ -5,6 +5,7 @@ import (
 
 	"example.com/m/v2/controller"
 	"example.com/m/v2/dto"
+	"example.com/m/v2/forms"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,10 @@ func main() {
 	store.Options(sessions.Options{MaxAge: 60 * 60 * 24})
 
 	gob.Register(dto.UserDTO{})
+	gob.Register(forms.LoginForm{})
+	gob.Register(forms.RegistrationForm{})
+	gob.Register(forms.ResidentDetailsForm{})
+	gob.Register(forms.ResidentTypeForm{})
 
 	router.Use(sessions.Sessions("mysession", store))
 	router.Static("/css", "web/css")

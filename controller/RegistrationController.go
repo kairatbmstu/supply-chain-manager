@@ -19,7 +19,12 @@ func (r RegistrationController) GetRegistrationType(c *gin.Context) {
 
 	if session.Get("registration") == nil {
 		session.Set("registration", new(forms.RegistrationForm))
-		session.Save()
+		err := session.Save()
+		if err != nil {
+			log.Println("error : ", err)
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
 	}
 
 	c.HTML(http.StatusOK, "register_resident_type.html", gin.H{})
@@ -34,7 +39,12 @@ func (r RegistrationController) PostRegistrationType(c *gin.Context) {
 		if session.Get("registration") != nil {
 			registrationForm := session.Get("registration").(forms.RegistrationForm)
 			registrationForm.ResidentType = residentTypeForm.ResidentType
-			session.Save()
+			err := session.Save()
+			if err != nil {
+				log.Println("error : ", err)
+				c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+				return
+			}
 		}
 	}
 
@@ -46,7 +56,12 @@ func (r RegistrationController) GetResidentDetails(c *gin.Context) {
 
 	if session.Get("registration") == nil {
 		session.Set("registration", new(forms.RegistrationForm))
-		session.Save()
+		err := session.Save()
+		if err != nil {
+			log.Println("error : ", err)
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
 	}
 
 	if session.Get("registration") != nil {
