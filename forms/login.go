@@ -1,6 +1,6 @@
 package forms
 
 type LoginForm struct {
-	Username string
-	Password string
+	Username string `form:"username"`
+	Password string `form:"password"`
 }
