@@ -18,7 +18,7 @@ func main() {
 
 	gob.Register(dto.UserDTO{})
 	gob.Register(forms.LoginForm{})
-	gob.Register(forms.RegistrationForm{})
+	gob.Register(forms.RegistrationModel{})
 	gob.Register(forms.ResidentDetailsForm{})
 	gob.Register(forms.ResidentTypeForm{})
 
@@ -35,20 +35,8 @@ func main() {
 	router.GET("/register/resident_details", controller.RegistrationControllerInstance.GetResidentDetails)
 	router.POST("/register/resident_details", controller.RegistrationControllerInstance.PostResidentDetails)
 
-	router.GET("/incr", func(c *gin.Context) {
-		session := sessions.Default(c)
-		var count int
-		v := session.Get("count")
-		if v == nil {
-			count = 0
-		} else {
-			count = v.(int)
-			count++
-		}
-		session.Set("count", count)
-		session.Save()
-		c.JSON(200, gin.H{"count": count})
-	})
+	router.GET("/register/organization_additional_info", controller.RegistrationControllerInstance.GetRegisterOrganizationAdditionalInfo)
+	router.POST("/register/organization_additional_info", controller.RegistrationControllerInstance.PostRegisterOrganizationAdditionalInfo)
 
 	router.Run(":8080")
 }

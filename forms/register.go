@@ -1,6 +1,6 @@
 package forms
 
-type RegistrationForm struct {
+type RegistrationModel struct {
 	ResidentType          string
 	FormOfLawCode         string
 	OrgName               string
