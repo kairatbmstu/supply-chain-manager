@@ -27,7 +27,7 @@ func main() {
 
 	gob.Register(dto.UserDTO{})
 	gob.Register(forms.LoginForm{})
-	gob.Register(forms.RegistrationModel{})
+	gob.Register(forms.RegistrationForm{})
 	gob.Register(forms.ResidentDetailsForm{})
 	gob.Register(forms.ResidentTypeForm{})
 
@@ -39,13 +39,13 @@ func main() {
 	router.GET("/", controller.IndexControllerInstance.GetIndexPage)
 	router.GET("/login", controller.LoginControllerInstance.GetLoginPage)
 	router.POST("/login", controller.LoginControllerInstance.PostLogin)
-	router.GET("/register/resident_type", controller.RegistrationControllerInstance.GetRegistrationType)
-	router.POST("/register/resident_type", controller.RegistrationControllerInstance.PostRegistrationType)
-	router.GET("/register/resident_details", controller.RegistrationControllerInstance.GetResidentDetails)
-	router.POST("/register/resident_details", controller.RegistrationControllerInstance.PostResidentDetails)
+	router.GET("/register/resident_type", controller.RegistrationControllerInstance.GetResidentType)
+	router.POST("/register/resident_type", controller.RegistrationControllerInstance.PostResidentType)
+	router.GET("/register/org_main_info", controller.RegistrationControllerInstance.GetMainInfo)
+	router.POST("/register/org_main_info", controller.RegistrationControllerInstance.PostOrgMainInfo)
 
-	router.GET("/register/organization_additional_info", controller.RegistrationControllerInstance.GetRegisterOrganizationAdditionalInfo)
-	router.POST("/register/organization_additional_info", controller.RegistrationControllerInstance.PostRegisterOrganizationAdditionalInfo)
+	router.GET("/register/org_additional_info", controller.RegistrationControllerInstance.GetRegisterOrganizationAdditionalInfo)
+	router.POST("/register/org_additional_info", controller.RegistrationControllerInstance.PostRegisterOrganizationAdditionalInfo)
 
 	router.GET("/register/contact_person_info", controller.RegistrationControllerInstance.GetContantPersonInfo)
 	router.POST("/register/contact_person_info", controller.RegistrationControllerInstance.PostContactPerson)

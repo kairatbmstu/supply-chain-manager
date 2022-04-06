@@ -14,19 +14,19 @@ var RegistrationControllerInstance RegistrationController
 type RegistrationController struct {
 }
 
-func (r RegistrationController) GetRegistrationType(c *gin.Context) {
+func (r RegistrationController) GetResidentType(c *gin.Context) {
 	initRegistrationForm(c)
 	c.HTML(http.StatusOK, "register_resident_type.html", gin.H{})
 }
 
-func (r RegistrationController) PostRegistrationType(c *gin.Context) {
+func (r RegistrationController) PostResidentType(c *gin.Context) {
 	session := sessions.Default(c)
-	var residentTypeForm forms.ResidentTypeForm
+	var residentTypeForm forms.RegistrationForm
 	if c.ShouldBind(&residentTypeForm) == nil {
 		log.Println(residentTypeForm.ResidentType)
 
 		if session.Get("registration") != nil {
-			registrationForm := session.Get("registration").(forms.RegistrationModel)
+			registrationForm := session.Get("registration").(forms.RegistrationForm)
 			registrationForm.ResidentType = residentTypeForm.ResidentType
 			err := session.Save()
 			if err != nil {
@@ -37,66 +37,90 @@ func (r RegistrationController) PostRegistrationType(c *gin.Context) {
 		}
 	}
 
-	c.Redirect(http.StatusFound, "/register/resident_details")
+	c.Redirect(http.StatusFound, "/register/org_main_info")
 }
 
-func (r RegistrationController) GetResidentDetails(c *gin.Context) {
+func (r RegistrationController) GetMainInfo(c *gin.Context) {
 	initRegistrationForm(c)
 
 	if getRegistrationForm(c) != nil {
 		registrationForm := getRegistrationForm(c)
-		c.HTML(http.StatusOK, "register_resident_details.html", gin.H{
-			"registrationForm": registrationForm,
+		c.HTML(http.StatusOK, "register_org_main_info.html", gin.H{
+			"regForm": registrationForm,
 		})
 	} else {
-		c.HTML(http.StatusOK, "register_resident_details.html", gin.H{})
+		c.HTML(http.StatusOK, "register_org_main_info.html", gin.H{})
 	}
 
 }
 
-func (r RegistrationController) PostResidentDetails(c *gin.Context) {
+func (r RegistrationController) PostOrgMainInfo(c *gin.Context) {
 	initRegistrationForm(c)
 
-	var residentDetailsForm forms.ResidentDetailsForm
-	if c.ShouldBind(&residentDetailsForm) == nil {
-
-		if getRegistrationForm(c) != nil {
-			registrationForm := getRegistrationForm(c)
-			registrationForm.OrgName = residentDetailsForm.OrgName
-			registrationForm.OrgAddress = residentDetailsForm.OrgAddress
-			registrationForm.FormOfLawID = residentDetailsForm.FormOfLawID
-			saveRegistrationForm(c, registrationForm)
-		}
+	var regForm = getRegistrationForm(c)
+	if c.ShouldBind(&regForm) == nil {
+		saveRegistrationForm(c, regForm)
 	}
 
-	c.Redirect(http.StatusFound, "/register/organization_additional_info")
+	c.Redirect(http.StatusFound, "/register/org_additional_info")
 }
 
 func (r RegistrationController) GetRegisterOrganizationAdditionalInfo(c *gin.Context) {
 	initRegistrationForm(c)
-	c.HTML(http.StatusOK, "register_organization_additional_info.html", gin.H{})
+
+	if getRegistrationForm(c) != nil {
+		regForm := getRegistrationForm(c)
+		c.HTML(http.StatusOK, "register_org_additional_info.html", gin.H{
+			"regForm": regForm,
+		})
+	} else {
+		c.HTML(http.StatusOK, "register_org_additional_info.html", gin.H{})
+	}
+
 }
 
 func (r RegistrationController) PostRegisterOrganizationAdditionalInfo(c *gin.Context) {
 	initRegistrationForm(c)
-	c.HTML(http.StatusOK, "register_organization_additional_info.html", gin.H{})
+
+	var regForm = getRegistrationForm(c)
+	if c.ShouldBind(&regForm) == nil {
+		saveRegistrationForm(c, regForm)
+	}
+
+	c.Redirect(http.StatusFound, "/register/contact_person_info")
 }
 
 func (r RegistrationController) GetContantPersonInfo(c *gin.Context) {
 	initRegistrationForm(c)
-	c.HTML(http.StatusOK, "register_organization_additional_info.html", gin.H{})
+
+	if getRegistrationForm(c) != nil {
+		registrationForm := getRegistrationForm(c)
+		c.HTML(http.StatusOK, "register_contact_person_info.html", gin.H{
+			"regForm": registrationForm,
+		})
+	} else {
+		c.HTML(http.StatusOK, "register_contact_person_info.html", gin.H{})
+	}
+
+	c.Redirect(http.StatusFound, "/register/contact_person_info")
 }
 
 func (r RegistrationController) PostContactPerson(c *gin.Context) {
 	initRegistrationForm(c)
-	c.HTML(http.StatusOK, "register_organization_additional_info.html", gin.H{})
+
+	var regForm = getRegistrationForm(c)
+	if c.ShouldBind(&regForm) == nil {
+		saveRegistrationForm(c, regForm)
+	}
+
+	c.HTML(http.StatusOK, "register_contact_person_info.html", gin.H{})
 }
 
 func initRegistrationForm(c *gin.Context) {
 	session := sessions.Default(c)
 
 	if session.Get("registration") == nil {
-		session.Set("registration", new(forms.RegistrationModel))
+		session.Set("registration", new(forms.RegistrationForm))
 		err := session.Save()
 		if err != nil {
 			log.Println("error : ", err)
@@ -106,16 +130,16 @@ func initRegistrationForm(c *gin.Context) {
 	}
 }
 
-func getRegistrationForm(c *gin.Context) *forms.RegistrationModel {
+func getRegistrationForm(c *gin.Context) *forms.RegistrationForm {
 	session := sessions.Default(c)
 	if session.Get("registration") != nil {
-		regForm := session.Get("registration").(forms.RegistrationModel)
+		regForm := session.Get("registration").(forms.RegistrationForm)
 		return &regForm
 	}
 	return nil
 }
 
-func saveRegistrationForm(c *gin.Context, registrationForm *forms.RegistrationModel) {
+func saveRegistrationForm(c *gin.Context, registrationForm *forms.RegistrationForm) {
 	session := sessions.Default(c)
 	session.Set("registration", registrationForm)
 	err := session.Save()

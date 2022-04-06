@@ -9,14 +9,14 @@
 
    
     
-        <form method="POST" action="/register/resident_details" style="max-width: 530px;  margin: 100px auto auto auto;">
+        <form method="POST" action="/register/org_main_info" style="max-width: 530px;  margin: 100px auto auto auto;">
             <div class="mb-3">
               <label for="org_name" class="form-label">Наименование организации</label>
-              <input type="text" class="form-control" id="org_name" name="org_name" placeholder="Наименование организации" value="{{ .orgName }}"/>
+              <input type="text" class="form-control" id="org_name" name="org_name" placeholder="Наименование организации" value="{{ .regForm.OrgName }}"/>
             </div>
             <div class="mb-3">
               <label for="org_address" class="form-label">Адрес регистрации</label>
-              <input type="text" class="form-control" id="org_address" name="org_address" placeholder="Адрес регистрации" value="{{ .orgAddress }}"/>
+              <input type="text" class="form-control" id="org_address" name="org_address" placeholder="Адрес регистрации" value="{{ .regForm.OrgAddress }}"/>
             </div>
             <div class="mb-3">
               <label for="form_of_law" class="form-label">Форма юридического лица</label>
