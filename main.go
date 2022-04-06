@@ -1,9 +1,7 @@
 package main
 
 import (
-	"database/sql"
 	"encoding/gob"
-	"log"
 
 	"example.com/m/v2/controller"
 	"example.com/m/v2/dto"
@@ -15,13 +13,13 @@ import (
 
 func main() {
 
-	connStr := "postgresql://supplier_portal:123456@localhost/todos?sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// connStr := "postgresql://supplier_portal:123456@localhost/todos?sslmode=disable"
+	// db, err := sql.Open("postgres", connStr)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	defer db.Close()
+	// defer db.Close()
 
 	router := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
@@ -34,8 +32,8 @@ func main() {
 	gob.Register(forms.ResidentTypeForm{})
 
 	router.Use(sessions.Sessions("mysession", store))
-	router.Static("/css", "web/css")
-	router.Static("/js", "web/js")
+	router.Static("web/css", "web/css")
+	router.Static("web/js", "web/js")
 	router.LoadHTMLGlob("web/templates/**/*")
 
 	router.GET("/", controller.IndexControllerInstance.GetIndexPage)

@@ -64,7 +64,7 @@ func (r RegistrationController) PostResidentDetails(c *gin.Context) {
 			registrationForm := getRegistrationForm(c)
 			registrationForm.OrgName = residentDetailsForm.OrgName
 			registrationForm.OrgAddress = residentDetailsForm.OrgAddress
-			registrationForm.FormOfLawCode = residentDetailsForm.FormOfLawCode
+			registrationForm.FormOfLawID = residentDetailsForm.FormOfLawID
 			saveRegistrationForm(c, registrationForm)
 		}
 	}

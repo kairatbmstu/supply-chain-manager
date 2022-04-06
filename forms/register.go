@@ -1,11 +1,11 @@
 package forms
 
 type RegistrationModel struct {
-	ResidentType          string
-	FormOfLawCode         string
+	IsResident            bool
+	FormOfLawID           int
 	OrgName               string
 	OrgPhone              string
-	IIN_BIN               string
+	IINBIN                string
 	BIC                   string
 	AccountNumber         string
 	KBE                   string
@@ -27,7 +27,18 @@ type ResidentTypeForm struct {
 }
 
 type ResidentDetailsForm struct {
-	OrgAddress    string `form:"org_address"`
-	OrgName       string `form:"org_name"`
-	FormOfLawCode string `form:"form_of_law_code"`
+	OrgAddress  string `form:"org_address"`
+	OrgName     string `form:"org_name"`
+	FormOfLawID int    `form:"form_of_law_code"`
+}
+
+type ResidentOrgAddInfoForm struct {
+	OrgPhone      string `form:"org_phone"`
+	OrgSite       string `form:"org_site"`
+	IINBIN        string `form:"iin_bin"`
+	AccountNumber string `form:"account_number"`
+	BIC           string `form:"bic"`
+	KBE           string `form:"kbe"`
+	RegionID      int    `form:"region_id"`
+	GLN           string `form:"gln"`
 }
