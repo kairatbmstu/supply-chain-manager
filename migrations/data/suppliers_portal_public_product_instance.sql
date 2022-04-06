@@ -1,0 +1,1 @@
+INSERT INTO public.product_instance (id, status_change_date, price_excluding_vat, vat_rate, price_with_vat, discount_from_basic_price, marginal_trade_markup, status, commercial_proposal_id, product_id, region_id, enter_product_request_id) VALUES (1300, '2022-03-23 06:35:13.562895', 22.00, null, 24.60, null, null, 'ReadyForKP', 1051, 1056, 1, null);

@@ -1,45 +1,80 @@
-create table barcode_mask
+create table databasechangeloglock
 (
-	code varchar(255) not null
-		constraint barcode_mask_pkey
+	id integer not null
+		constraint databasechangeloglock_pkey
 			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
+	locked boolean not null,
+	lockgranted timestamp,
+	lockedby varchar(255)
 );
 
+alter table databasechangeloglock owner to suppliers_portal;
 
-create table app_user
+create table databasechangelog
+(
+	id varchar(255) not null,
+	author varchar(255) not null,
+	filename varchar(255) not null,
+	dateexecuted timestamp not null,
+	orderexecuted integer not null,
+	exectype varchar(10) not null,
+	md5sum varchar(35),
+	description varchar(255),
+	comments varchar(255),
+	tag varchar(255),
+	liquibase varchar(20),
+	contexts varchar(255),
+	labels varchar(255),
+	deployment_id varchar(10)
+);
+
+alter table databasechangelog owner to suppliers_portal;
+
+create table otdel
 (
 	id bigint not null
-		constraint app_user_pkey
+		constraint otdel_pkey
 			primary key,
-	iin varchar(255),
-	first_name varchar(255),
-	middle_name varchar(255),
-	last_name varchar(255),
-	phone varchar(255)
-		constraint phone_unique_constraint
-			unique,
-	username varchar(255)
-		constraint username_unique_constraint
-			unique,
-	email varchar(255)
-		constraint email_unique_constraint
-			unique,
-	password varchar(255),
-	is_active boolean,
-	active_directory_link varchar(255),
-	reg_datetime timestamp,
-	otdel_id bigint
-		constraint fk_app_user__otdel_id
-			references otdel,
-	organization_id bigint
-		constraint fk_app_user__organization_id
-			references organization
+	code varchar(255),
+	external_id integer,
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255),
+	level varchar(255)
 );
 
+alter table otdel owner to suppliers_portal;
+
+create table jhi_group
+(
+	id bigint not null
+		constraint jhi_group_pkey
+			primary key,
+	code varchar(255),
+	external_id integer,
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255),
+	otdel_id bigint
+);
+
+alter table jhi_group owner to suppliers_portal;
+
+create table subgroup
+(
+	id bigint not null
+		constraint subgroup_pkey
+			primary key,
+	code varchar(255),
+	external_id integer,
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255),
+	group_id bigint,
+	subcategory_id bigint
+);
+
+alter table subgroup owner to suppliers_portal;
 
 create table app_role
 (
@@ -52,6 +87,7 @@ create table app_role
 	name_en varchar(255)
 );
 
+alter table app_role owner to suppliers_portal;
 
 create table category
 (
@@ -67,128 +103,62 @@ create table category
 	name_en varchar(255)
 );
 
+alter table category owner to suppliers_portal;
 
-create table certificate_type
+create table rel_category__role
+(
+	role_id bigint not null
+		constraint fk_rel_category__role__role_id
+			references app_role,
+	category_id bigint not null
+		constraint fk_rel_category__role__category_id
+			references category,
+	constraint rel_category__role_pkey
+		primary key (category_id, role_id)
+);
+
+alter table rel_category__role owner to suppliers_portal;
+
+create table sub_category
 (
 	id bigint not null
-		constraint certificate_type_pkey
+		constraint sub_category_pkey
 			primary key,
+	code varchar(255),
 	external_id varchar(255),
 	name_ru varchar(255),
 	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table child_weight
-(
-	id bigint not null
-		constraint child_weight_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table color
-(
-	id bigint not null
-		constraint color_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table commercial_conditions
-(
-	id bigint not null
-		constraint commercial_conditions_pkey
-			primary key,
-	fix_bonus numeric(21,2),
-	fix_premium numeric(21,2),
-	logist_cost numeric(21,2),
-	logist_bonus numeric(21,2),
-	payment_due_date varchar(255),
-	account_work varchar(255),
-	inkoterms varchar(255),
-	minimal_order_lot varchar(255),
-	status varchar(255),
-	payment_type_id bigint
-		constraint fk_commercial_conditions__payment_type_id
-			references payment_type,
-	organization_id bigint
-		constraint fk_commercial_conditions__organization_id
-			references organization
-);
-
-
-create table commercial_proposal
-(
-	id bigint not null
-		constraint commercial_proposal_pkey
-			primary key,
-	process_instance varchar(255),
-	process_date timestamp,
-	status varchar(255),
-	proposal_conditions_id bigint
-		constraint ux_commercial_proposal__proposal_conditions_id
-			unique
-		constraint fk_commercial_proposal__proposal_conditions_id
-			references proposal_conditions,
-	organization_id bigint
-		constraint fk_commercial_proposal__organization_id
-			references organization,
+	name_en varchar(255),
 	otdel_id bigint
-		constraint fk_commercial_proposal__otdel_id
+		constraint fk_sub_category__otdel_id
 			references otdel,
-	delivery_conditions_id bigint
-		constraint fk_commercial_proposal__delivery_conditions_id
-			references delivery_conditions,
-	enter_product_request_id bigint
-		constraint fk_commercial_proposal__enter_product_request_id
-			references enter_product_request,
-	currency varchar(10)
+	category_id bigint
+		constraint fk_sub_category__category_id
+			references category,
+	constraint ux_subcategory_category_name_ru
+		unique (category_id, name_ru)
 );
 
+alter table sub_category owner to suppliers_portal;
 
-create table commercial_proposal_status
+create table region
 (
-	code varchar(255) not null
-		constraint commercial_proposal_status_pkey
+	id bigint not null
+		constraint region_pkey
 			primary key,
+	code varchar(255),
+	external_id varchar(255),
 	name_ru varchar(255),
 	name_kz varchar(255),
 	name_en varchar(255)
 );
 
+alter table region owner to suppliers_portal;
 
-create table commercial_proposal_status_h
+create table size
 (
 	id bigint not null
-		constraint commercial_proposal_status_h_pkey
-			primary key,
-	status_date timestamp,
-	status varchar(255),
-	comment_text text,
-	user_id bigint
-		constraint fk_commercial_proposal_status_h__user_id
-			references app_user,
-	commercial_proposal_id bigint
-		constraint fk_commercial_proposal_status_h__commercial_proposal_id
-			references commercial_proposal,
-	is_internal boolean default false
-);
-
-
-create table country
-(
-	id bigint not null
-		constraint country_pkey
+		constraint size_pkey
 			primary key,
 	external_id varchar(255),
 	name_ru varchar(255),
@@ -196,120 +166,20 @@ create table country
 	name_en varchar(255)
 );
 
+alter table size owner to suppliers_portal;
 
-create table currency
+create table kbe
 (
-	code varchar(255) not null
-		constraint currency_pkey
+	id bigint not null
+		constraint kbe_pkey
 			primary key,
+	code varchar(255),
 	name_ru varchar(255),
 	name_kz varchar(255),
 	name_en varchar(255)
 );
 
-create table delivery_conditions
-(
-	id bigint not null
-		constraint delivery_conditions_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-create table enter_product_request
-(
-	id bigint not null
-		constraint enter_product_request_pkey
-			primary key,
-	start_date timestamp,
-	end_date timestamp,
-	status varchar(255),
-	otdel_id bigint
-		constraint fk_enter_product_request__otdel_id
-			references otdel,
-	organization_id bigint
-		constraint fk_enter_product_request__organization_id
-			references organization
-);
-
-create table enter_product_request_notif
-(
-	id bigint not null
-		constraint enter_product_request_notif_pkey
-			primary key,
-	create_date timestamp,
-	text varchar(255),
-	enter_product_request_id bigint
-		constraint fk_enter_product_request_notif__enter_product_request_id
-			references enter_product_request
-);
-
-create table enter_product_request_status
-(
-	code varchar(255) not null
-		constraint enter_product_request_status_pkey
-			primary key,
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table enter_product_request_status_h
-(
-	id bigint not null
-		constraint enter_product_request_status_h_pkey
-			primary key,
-	status varchar(255),
-	status_date_time timestamp,
-	comment_text varchar(255),
-	user_id bigint
-		constraint fk_enter_product_request_status_h__user_id
-			references app_user,
-	enter_product_request_id bigint
-		constraint fk_enter_product_request_status_h__enter_product_request_id
-			references enter_product_request,
-	is_internal boolean default false
-);
-
-
-create table fat_content
-(
-	id bigint not null
-		constraint fat_content_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table field_group
-(
-	id bigint not null
-		constraint field_group_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table foliage
-(
-	id bigint not null
-		constraint foliage_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
+alter table kbe owner to suppliers_portal;
 
 create table form_of_law
 (
@@ -323,68 +193,7 @@ create table form_of_law
 	name_en varchar(255)
 );
 
-
-create table jhi_group
-(
-	id bigint not null
-		constraint jhi_group_pkey
-			primary key,
-	code varchar(255),
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255),
-	otdel_id bigint
-);
-
-
-create table kbe
-(
-	id bigint not null
-		constraint kbe_pkey
-			primary key,
-	code varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table load
-(
-	id bigint not null
-		constraint load_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table logisticts_options
-(
-	id bigint not null
-		constraint logisticts_options_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
-
-create table measurement
-(
-	id bigint not null
-		constraint measurement_pkey
-			primary key,
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
-
+alter table form_of_law owner to suppliers_portal;
 
 create table organization
 (
@@ -415,43 +224,128 @@ create table organization
 			references form_of_law,
 	kbe_id bigint
 		constraint fk_organization__kbe_id
-			references kbe
+			references kbe,
+	external_id bigint
+		constraint organization_external_id_key
+			unique,
+	name_kz varchar(500),
+	name_en varchar(500),
+	is_blocked boolean default false
 );
 
+alter table organization owner to suppliers_portal;
 
-create table department
+create table app_user
 (
 	id bigint not null
-		constraint otdel_pkey
+		constraint app_user_pkey
 			primary key,
-	code varchar(255),
+	iin varchar(255),
+	first_name varchar(255),
+	middle_name varchar(255),
+	last_name varchar(255),
+	phone varchar(255)
+		constraint phone_unique_constraint
+			unique,
+	username varchar(255)
+		constraint username_unique_constraint
+			unique,
+	email varchar(255)
+		constraint email_unique_constraint
+			unique,
+	password varchar(255),
+	is_active boolean,
+	active_directory_link varchar(255),
+	reg_datetime timestamp,
+	otdel_id bigint
+		constraint fk_app_user__otdel_id
+			references otdel,
+	organization_id bigint
+		constraint fk_app_user__organization_id
+			references organization,
+	allow_self_registration boolean default false,
+	constraint app_user_iin_organization_id_key
+		unique (iin, organization_id)
+);
+
+alter table app_user owner to suppliers_portal;
+
+create table rel_app_user__role
+(
+	role_id bigint not null
+		constraint fk_rel_app_user__role__role_id
+			references app_role,
+	app_user_id bigint not null
+		constraint fk_rel_app_user__role__app_user_id
+			references app_user,
+	constraint rel_app_user__role_pkey
+		primary key (app_user_id, role_id)
+);
+
+alter table rel_app_user__role owner to suppliers_portal;
+
+create table user_session
+(
+	id bigint not null
+		constraint user_session_pkey
+			primary key,
+	session_id varchar(255),
+	start_date_time timestamp,
+	end_date_time timestamp,
+	user_id bigint
+		constraint fk_user_session__user_id
+			references app_user
+);
+
+alter table user_session owner to suppliers_portal;
+
+create table rel_organization__region
+(
+	region_id bigint not null
+		constraint fk_rel_organization__region__region_id
+			references region,
+	organization_id bigint not null
+		constraint fk_rel_organization__region__organization_id
+			references organization,
+	constraint rel_organization__region_pkey
+		primary key (organization_id, region_id)
+);
+
+alter table rel_organization__region owner to suppliers_portal;
+
+create table logisticts_options
+(
+	id bigint not null
+		constraint logisticts_options_pkey
+			primary key,
 	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table logisticts_options owner to suppliers_portal;
+
+create table measurement
+(
+	id bigint not null
+		constraint measurement_pkey
+			primary key,
+	external_id integer,
 	name_ru varchar(255),
 	name_kz varchar(255),
 	name_en varchar(255),
-	level varchar(255)
+	abr_unit_ru varchar(25),
+	abr_unit_kz varchar(25),
+	abr_unit_en varchar(25)
 );
 
-create table package_type
-(
-	id bigint not null
-		constraint package_type_pkey
-			primary key,
-	external_id varchar(255),
-	short_name_ru varchar(255),
-	short_name_kz varchar(255),
-	short_name_en varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
-);
+alter table measurement owner to suppliers_portal;
 
-alter table package_type owner to suppliers_portal;
-
-create table packaging
+create table barcode_mask
 (
-	id bigint not null
-		constraint packaging_pkey
+	code varchar(255) not null
+		constraint barcode_mask_pkey
 			primary key,
 	external_id varchar(255),
 	name_ru varchar(255),
@@ -459,7 +353,19 @@ create table packaging
 	name_en varchar(255)
 );
 
-alter table packaging owner to suppliers_portal;
+alter table barcode_mask owner to suppliers_portal;
+
+create table commercial_proposal_status
+(
+	code varchar(255) not null
+		constraint commercial_proposal_status_pkey
+			primary key,
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table commercial_proposal_status owner to suppliers_portal;
 
 create table payment_type
 (
@@ -474,18 +380,416 @@ create table payment_type
 
 alter table payment_type owner to suppliers_portal;
 
-create table photo_type
+create table proposal_conditions
 (
 	id bigint not null
-		constraint photo_type_pkey
+		constraint proposal_conditions_pkey
+			primary key,
+	fix_bonus numeric(21,2),
+	fix_premium numeric(21,2),
+	logist_bonus numeric(21,2),
+	account_work varchar(255),
+	inkoterms varchar(255),
+	minimal_order_lot varchar(255),
+	payment_due_date varchar(50),
+	payment_type_id bigint
+		constraint fk_proposal_conditions_payment_type
+			references payment_type
+);
+
+alter table proposal_conditions owner to suppliers_portal;
+
+create table rel_proposal_conditions__region
+(
+	region_id bigint not null
+		constraint fk_rel_proposal_conditions__region__region_id
+			references region,
+	proposal_conditions_id bigint not null
+		constraint fk_rel_proposal_conditions__region__proposal_conditions_id
+			references proposal_conditions,
+	constraint rel_proposal_conditions__region_pkey
+		primary key (proposal_conditions_id, region_id)
+);
+
+alter table rel_proposal_conditions__region owner to suppliers_portal;
+
+create table commercial_conditions
+(
+	id bigint not null
+		constraint commercial_conditions_pkey
+			primary key,
+	fix_bonus numeric(21,2),
+	fix_premium numeric(21,2),
+	logist_cost numeric(21,2),
+	logist_bonus numeric(21,2),
+	payment_due_date varchar(255),
+	account_work varchar(255),
+	inkoterms varchar(255),
+	minimal_order_lot varchar(255),
+	status varchar(255),
+	payment_type_id bigint
+		constraint fk_commercial_conditions__payment_type_id
+			references payment_type,
+	organization_id bigint
+		constraint fk_commercial_conditions__organization_id
+			references organization,
+	id_text varchar(255)
+);
+
+alter table commercial_conditions owner to suppliers_portal;
+
+create table rel_commercial_conditions__region
+(
+	region_id bigint not null
+		constraint fk_rel_commercial_conditions__region__region_id
+			references region,
+	commercial_conditions_id bigint not null
+		constraint fk_rel_commercial_conditions__region__commercial_conditions_id
+			references commercial_conditions,
+	constraint rel_commercial_conditions__region_pkey
+		primary key (commercial_conditions_id, region_id)
+);
+
+alter table rel_commercial_conditions__region owner to suppliers_portal;
+
+create table enter_product_request
+(
+	id bigint not null
+		constraint enter_product_request_pkey
+			primary key,
+	start_date timestamp,
+	end_date timestamp,
+	status varchar(255),
+	otdel_id bigint
+		constraint fk_enter_product_request__otdel_id
+			references otdel,
+	organization_id bigint
+		constraint fk_enter_product_request__organization_id
+			references organization
+);
+
+alter table enter_product_request owner to suppliers_portal;
+
+create table app_error
+(
+	id bigint not null
+		constraint app_error_pkey
+			primary key,
+	code varchar(255),
+	message varchar(255),
+	description varchar(255),
+	date_time varchar(255),
+	app_error_type varchar(255),
+	app_integration_type varchar(255),
+	app_user_id bigint
+		constraint fk_app_error__app_user_id
+			references app_user,
+	enter_product_request_id bigint
+		constraint fk_app_error__enter_product_request_id
+			references enter_product_request
+);
+
+alter table app_error owner to suppliers_portal;
+
+create table enter_product_request_status
+(
+	code varchar(255) not null
+		constraint enter_product_request_status_pkey
 			primary key,
 	name_ru varchar(255),
 	name_kz varchar(255),
 	name_en varchar(255)
 );
 
-alter table photo_type owner to suppliers_portal;
+alter table enter_product_request_status owner to suppliers_portal;
 
+create table enter_product_request_notif
+(
+	id bigint not null
+		constraint enter_product_request_notif_pkey
+			primary key,
+	create_date timestamp,
+	text varchar(255),
+	enter_product_request_id bigint
+		constraint fk_enter_product_request_notif__enter_product_request_id
+			references enter_product_request
+);
+
+alter table enter_product_request_notif owner to suppliers_portal;
+
+create table field_group
+(
+	id bigint not null
+		constraint field_group_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table field_group owner to suppliers_portal;
+
+create table product_field
+(
+	id bigint not null
+		constraint product_field_pkey
+			primary key,
+	code varchar(255),
+	sprut_code varchar(255),
+	mandatory boolean,
+	field_name varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255),
+	field_type varchar(255),
+	field_group_id bigint
+		constraint fk_product_field__field_group_id
+			references field_group,
+	excel_field_name varchar(255),
+	field_target_source varchar(255),
+	json_property varchar(255),
+	field_order integer
+);
+
+alter table product_field owner to suppliers_portal;
+
+create table product_field_value
+(
+	id bigint not null
+		constraint product_field_value_pkey
+			primary key,
+	value varchar(255),
+	value_id bigint,
+	product_field_id bigint not null,
+	product_id bigint not null
+);
+
+alter table product_field_value owner to suppliers_portal;
+
+create table token_black_list
+(
+	id bigint not null
+		constraint token_black_list_pkey
+			primary key,
+	token varchar(255),
+	type varchar(255),
+	dispose_time timestamp
+);
+
+alter table token_black_list owner to suppliers_portal;
+
+create table country
+(
+	id bigint not null
+		constraint country_pkey
+			primary key,
+	external_id integer,
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table country owner to suppliers_portal;
+
+create table tnvd
+(
+	id bigint not null
+		constraint tnvd_pkey
+			primary key,
+	external_id varchar(255),
+	code varchar(255),
+	name_ru varchar(1500),
+	name_kz varchar(1500),
+	name_en varchar(1500)
+);
+
+alter table tnvd owner to suppliers_portal;
+
+create table color
+(
+	id bigint not null
+		constraint color_pkey
+			primary key,
+	external_id bigint,
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table color owner to suppliers_portal;
+
+create table taste
+(
+	id bigint not null
+		constraint taste_pkey
+			primary key,
+	external_id bigint,
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table taste owner to suppliers_portal;
+
+create table package_type
+(
+	id bigint not null
+		constraint package_type_pkey
+			primary key,
+	external_id bigint,
+	short_name_ru varchar(255),
+	short_name_kz varchar(255),
+	short_name_en varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table package_type owner to suppliers_portal;
+
+create table fat_content
+(
+	id bigint not null
+		constraint fat_content_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table fat_content owner to suppliers_portal;
+
+create table child_weight
+(
+	id bigint not null
+		constraint child_weight_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table child_weight owner to suppliers_portal;
+
+create table seasonality_sign
+(
+	id bigint not null
+		constraint seasonality_sign_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table seasonality_sign owner to suppliers_portal;
+
+create table packaging
+(
+	id bigint not null
+		constraint packaging_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table packaging owner to suppliers_portal;
+
+create table storage_and_transportation_conditions
+(
+	id bigint not null
+		constraint storage_and_transportation_conditions_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table storage_and_transportation_conditions owner to suppliers_portal;
+
+create table additional_options
+(
+	id bigint not null
+		constraint additional_options_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table additional_options owner to suppliers_portal;
+
+create table volume
+(
+	id bigint not null
+		constraint volume_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table volume owner to suppliers_portal;
+
+create table foliage
+(
+	id bigint not null
+		constraint foliage_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table foliage owner to suppliers_portal;
+
+create table age_category
+(
+	id bigint not null
+		constraint age_category_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table age_category owner to suppliers_portal;
+
+create table load
+(
+	id bigint not null
+		constraint load_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table load owner to suppliers_portal;
+
+create table delivery_conditions
+(
+	id bigint not null
+		constraint delivery_conditions_pkey
+			primary key,
+	external_id varchar(255),
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
+);
+
+alter table delivery_conditions owner to suppliers_portal;
 
 create table product
 (
@@ -509,11 +813,7 @@ create table product
 	assign_barcode boolean,
 	vendor_code varchar(255),
 	material varchar(255),
-	sale_period_days varchar(255),
-	expiration_date_after_opening_days varchar(255),
 	density varchar(255),
-	watt varchar(255),
-	ampere varchar(255),
 	plinth varchar(255),
 	model varchar(255),
 	completeness varchar(255),
@@ -525,45 +825,23 @@ create table product
 	organic_sign boolean,
 	vegan_sign boolean,
 	diabetic_sign boolean,
-	natural_loss_rate varchar(255),
-	proteins varchar(255),
-	fats varchar(255),
-	carbohydrates varchar(255),
-	energy_value_kcal varchar(255),
 	touch_sensitivity_sign boolean,
 	ethylene_sensitivity boolean,
-	alcohol_strength varchar(255),
-	tare_weight varchar(255),
-	length_deep varchar(255),
-	width varchar(255),
-	height varchar(255),
-	net_weight varchar(255),
-	gross_weight varchar(255),
-	dry_weight varchar(255),
 	minimum_storage_temperature varchar(255),
 	maximum_storage_temperature varchar(255),
 	block_attribute boolean,
 	wblock_code varchar(255),
-	number_of_pieceskg_in_block varchar(255),
-	length_depth_cm varchar(255),
-	width_cm varchar(255),
-	height_cm varchar(255),
-	weight_cm varchar(255),
-	unit_gross_weight_kg varchar(255),
 	conformity_certificate_end_date timestamp,
-	position_name_in_state_language varchar(255),
+	position_name_in_state_language varchar(50),
 	price_segment varchar(255),
-	sale_price_with_va_ttg_cc varchar(255),
-	sale_price_with_va_ttg_atak varchar(255),
 	pin_code varchar(255),
-	packaging numeric(21,2),
 	load numeric(21,2),
 	foliage varchar(255),
 	fat_content numeric(21,2),
 	logisticts_options varchar(255),
 	sizeval varchar(255),
 	additional_options varchar(255),
-	age_category integer,
+	age_category varchar(255),
 	barcode_mask varchar(255),
 	origin_country_id bigint
 		constraint fk_product__origin_country_id
@@ -606,89 +884,134 @@ create table product
 	composition_photo bigint,
 	item_photo_for_scales bigint,
 	certificate_photo_of_item_conformity bigint,
+	taste varchar(500),
+	external_id bigint
+		constraint product_external_id_key
+			unique,
+	packaging varchar(500),
+	alcohol_strength numeric(19,2),
+	ampere numeric(19,2),
+	carbohydrates numeric(19,2),
+	dry_weight numeric(19,2),
+	energy_value_kcal numeric(19,2),
+	expiration_date_after_opening_days integer,
+	fats numeric(19,2),
+	gross_weight numeric(19,2),
+	height numeric(19,2),
+	height_cm numeric(19,2),
+	length_deep numeric(19,2),
+	length_depth_cm numeric(19,2),
+	natural_loss_rate numeric(19,2),
+	net_weight numeric(19,2),
+	number_of_pieceskg_in_block numeric(19,2),
+	proteins numeric(19,2),
+	sale_period_days integer,
+	sale_price_with_va_ttg_atak numeric(19,2),
+	sale_price_with_va_ttg_cc numeric(19,2),
+	tare_weight numeric(19,2),
+	unit_gross_weight_kg numeric(19,2),
+	watt numeric(19,2),
+	weight_cm numeric(19,2),
+	width numeric(19,2),
+	width_cm numeric(19,2),
+	size_id bigint,
 	constraint product_gtin_code_organization_id_key
 		unique (gtin_code, organization_id),
 	constraint product_vendor_code_organization_id_key
 		unique (vendor_code, organization_id)
 );
 
+alter table product owner to suppliers_portal;
 
-create table product_certificate
+create table commercial_proposal
 (
 	id bigint not null
-		constraint product_certificate_pkey
+		constraint commercial_proposal_pkey
 			primary key,
-	name varchar(255),
-	active boolean,
-	filename varchar(255),
-	filepath varchar(255),
-	product_id bigint
-		constraint fk_product_certificate__product_id
-			references product,
-	content_type varchar(255) not null,
-	original_filename varchar(500) not null,
-	expire_date date,
-	certificate_type_id bigint
-		constraint fk_certificate
-			references certificate_type,
-	url varchar(500)
+	process_instance varchar(255),
+	process_date timestamp,
+	status varchar(255),
+	proposal_conditions_id bigint
+		constraint ux_commercial_proposal__proposal_conditions_id
+			unique
+		constraint fk_commercial_proposal__proposal_conditions_id
+			references proposal_conditions,
+	organization_id bigint
+		constraint fk_commercial_proposal__organization_id
+			references organization,
+	otdel_id bigint
+		constraint fk_commercial_proposal__otdel_id
+			references otdel,
+	delivery_conditions_id bigint
+		constraint fk_commercial_proposal__delivery_conditions_id
+			references delivery_conditions,
+	enter_product_request_id bigint
+		constraint fk_commercial_proposal__enter_product_request_id
+			references enter_product_request,
+	currency varchar(10)
 );
 
+alter table commercial_proposal owner to suppliers_portal;
 
-create table product_field
+create table process
 (
 	id bigint not null
-		constraint product_field_pkey
+		constraint process_pkey
 			primary key,
-	code varchar(255),
-	sprut_code varchar(255),
-	mandatory boolean,
-	field_name varchar(255),
+	enter_product_request_id bigint
+		constraint ux_process__enter_product_request_id
+			unique
+		constraint fk_process__enter_product_request_id
+			references enter_product_request,
+	commercial_proposal_id bigint
+		constraint ux_process__commercial_proposal_id
+			unique
+		constraint fk_process__commercial_proposal_id
+			references commercial_proposal
+);
+
+alter table process owner to suppliers_portal;
+
+create table currency
+(
+	code varchar(255) not null
+		constraint currency_pkey
+			primary key,
 	name_ru varchar(255),
 	name_kz varchar(255),
-	name_en varchar(255),
-	field_type varchar(255),
-	field_group_id bigint
-		constraint fk_product_field__field_group_id
-			references field_group
+	name_en varchar(255)
 );
 
+alter table currency owner to suppliers_portal;
 
-create table product_field_in_category
+create table product_photo
 (
 	id bigint not null
-		constraint product_field_in_category_pkey
+		constraint product_photo_pkey
 			primary key,
-	active boolean,
-	sub_category_id bigint
-		constraint fk_product_field_in_category__sub_category_id
-			references sub_category,
-	product_field_id bigint
-		constraint fk_product_field_in_category__product_field_id
-			references product_field,
-	constraint product_field_category_unique_constraint
-		unique (sub_category_id, product_field_id),
-	constraint product_field_in_category_sub_category_id_product_field_id_key
-		unique (sub_category_id, product_field_id)
+	input_dir varchar(255),
+	filename varchar(255),
+	original_filename varchar(255),
+	url varchar(255),
+	photo_type_id bigint,
+	product_id bigint,
+	content_type varchar(255) not null,
+	filepath varchar(500) not null
 );
 
+alter table product_photo owner to suppliers_portal;
 
-create table product_field_stage
+create table photo_type
 (
 	id bigint not null
-		constraint product_field_stage_pkey
+		constraint photo_type_pkey
 			primary key,
-	stage varchar(255),
-	privilege_supplier varchar(255),
-	privilege_km varchar(255),
-	privilege_rn varchar(255),
-	privilege_oukd varchar(255),
-	privilege_ducp varchar(255),
-	product_field_id bigint
-		constraint fk_product_field_stage__product_field_id
-			references product_field
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
 );
 
+alter table photo_type owner to suppliers_portal;
 
 create table product_instance
 (
@@ -716,135 +1039,96 @@ create table product_instance
 			references enter_product_request
 );
 
+alter table product_instance owner to suppliers_portal;
 
-create table product_photo
+create table product_in_region
 (
 	id bigint not null
-		constraint product_photo_pkey
+		constraint product_in_region_pkey
 			primary key,
-	input_dir varchar(255),
-	filename varchar(255),
-	original_filename varchar(255),
-	url varchar(255),
-	photo_type_id bigint,
-	product_id bigint,
-	content_type varchar(255) not null,
-	filepath varchar(500) not null
+	product_id bigint
+		constraint fk_product_in_region__product_id
+			references product,
+	region_id bigint
+		constraint fk_product_in_region__region_id
+			references region
 );
 
+alter table product_in_region owner to suppliers_portal;
 
-create table proposal_conditions
+create table product_field_stage
 (
 	id bigint not null
-		constraint proposal_conditions_pkey
+		constraint product_field_stage_pkey
 			primary key,
-	fix_bonus numeric(21,2),
-	fix_premium numeric(21,2),
-	logist_bonus numeric(21,2),
-	account_work varchar(255),
-	inkoterms varchar(255),
-	minimal_order_lot varchar(255),
-	payment_due_date varchar(50),
-	payment_type_id bigint
-		constraint fk_proposal_conditions_payment_type
-			references payment_type
+	stage varchar(255),
+	privilege_supplier varchar(255),
+	privilege_km varchar(255),
+	privilege_rn varchar(255),
+	privilege_oukd varchar(255),
+	privilege_ducp varchar(255),
+	product_field_id bigint
+		constraint fk_product_field_stage__product_field_id
+			references product_field,
+	mandatory boolean default false,
+	is_visible boolean default true
 );
 
+alter table product_field_stage owner to suppliers_portal;
 
-create table region
+create table field_check_in_stage
 (
 	id bigint not null
-		constraint region_pkey
+		constraint field_check_in_stage_pkey
 			primary key,
-	code varchar(255),
-	external_id varchar(255),
-	name_ru varchar(255),
-	name_kz varchar(255),
-	name_en varchar(255)
+	update_time timestamp,
+	active boolean,
+	stage varchar(255),
+	product_id bigint
+		constraint fk_field_check_in_stage__product_id
+			references product
 );
 
+alter table field_check_in_stage owner to suppliers_portal;
 
-create table rel_app_user__role
-(
-	role_id bigint not null
-		constraint fk_rel_app_user__role__role_id
-			references app_role,
-	app_user_id bigint not null
-		constraint fk_rel_app_user__role__app_user_id
-			references app_user,
-	constraint rel_app_user__role_pkey
-		primary key (app_user_id, role_id)
-);
-
-
-create table rel_category__role
-(
-	role_id bigint not null
-		constraint fk_rel_category__role__role_id
-			references app_role,
-	category_id bigint not null
-		constraint fk_rel_category__role__category_id
-			references category,
-	constraint rel_category__role_pkey
-		primary key (category_id, role_id)
-);
-
-
-create table rel_commercial_conditions__region
-(
-	region_id bigint not null
-		constraint fk_rel_commercial_conditions__region__region_id
-			references region,
-	commercial_conditions_id bigint not null
-		constraint fk_rel_commercial_conditions__region__commercial_conditions_id
-			references commercial_conditions,
-	constraint rel_commercial_conditions__region_pkey
-		primary key (commercial_conditions_id, region_id)
-);
-
-create table rel_organization__region
-(
-	region_id bigint not null
-		constraint fk_rel_organization__region__region_id
-			references region,
-	organization_id bigint not null
-		constraint fk_rel_organization__region__organization_id
-			references organization,
-	constraint rel_organization__region_pkey
-		primary key (organization_id, region_id)
-);
-
-alter table rel_organization__region owner to suppliers_portal;
-
-create table rel_proposal_conditions__region
-(
-	region_id bigint not null
-		constraint fk_rel_proposal_conditions__region__region_id
-			references region,
-	proposal_conditions_id bigint not null
-		constraint fk_rel_proposal_conditions__region__proposal_conditions_id
-			references proposal_conditions,
-	constraint rel_proposal_conditions__region_pkey
-		primary key (proposal_conditions_id, region_id)
-);
-
-alter table rel_proposal_conditions__region owner to suppliers_portal;
-
-create table request_step_notification
+create table product_field_in_category
 (
 	id bigint not null
-		constraint request_step_notification_pkey
+		constraint product_field_in_category_pkey
 			primary key,
-	create_date timestamp,
-	bprocess varchar(255),
-	jhi_to varchar(255),
-	mail_text varchar(255),
-	subject varchar(255),
-	json varchar(255),
+	active boolean,
+	sub_category_id bigint
+		constraint fk_product_field_in_category__sub_category_id
+			references sub_category,
+	product_field_id bigint
+		constraint fk_product_field_in_category__product_field_id
+			references product_field,
+	constraint product_field_category_unique_constraint
+		unique (sub_category_id, product_field_id),
+	constraint product_field_in_category_sub_category_id_product_field_id_key
+		unique (sub_category_id, product_field_id)
+);
+
+alter table product_field_in_category owner to suppliers_portal;
+
+create table commercial_proposal_status_h
+(
+	id bigint not null
+		constraint commercial_proposal_status_h_pkey
+			primary key,
+	status_date timestamp,
+	status varchar(255),
+	comment_text text,
 	user_id bigint
-		constraint fk_request_step_notification__user_id
-			references app_user
+		constraint fk_commercial_proposal_status_h__user_id
+			references app_user,
+	commercial_proposal_id bigint
+		constraint fk_commercial_proposal_status_h__commercial_proposal_id
+			references commercial_proposal,
+	is_internal boolean default false
 );
+
+alter table commercial_proposal_status_h owner to suppliers_portal;
 
 create table reset_password_application
 (
@@ -855,15 +1139,56 @@ create table reset_password_application
 	recovery_code varchar(8),
 	created_time timestamp,
 	token varchar(255),
-	confirmation_status boolean
+	confirmation_status boolean default false
 );
 
 alter table reset_password_application owner to suppliers_portal;
 
-create table storage_and_transportation_conditions
+create table request_step_notification
 (
 	id bigint not null
-		constraint storage_and_transportation_conditions_pkey
+		constraint request_step_notification_pkey
+			primary key,
+	create_date timestamp,
+	bprocess varchar(255),
+	jhi_to varchar(255),
+	mail_text text,
+	subject varchar(255),
+	json varchar(255),
+	user_id bigint
+		constraint fk_request_step_notification__user_id
+			references app_user,
+	is_read boolean default false,
+	failed_count integer default 0,
+	status varchar(20) default 'WAITING'::character varying,
+	error_description text
+);
+
+alter table request_step_notification owner to suppliers_portal;
+
+create table enter_product_request_status_h
+(
+	id bigint not null
+		constraint enter_product_request_status_h_pkey
+			primary key,
+	status varchar(255),
+	status_date_time timestamp,
+	comment_text varchar(255),
+	user_id bigint
+		constraint fk_enter_product_request_status_h__user_id
+			references app_user,
+	enter_product_request_id bigint
+		constraint fk_enter_product_request_status_h__enter_product_request_id
+			references enter_product_request,
+	is_internal boolean default false
+);
+
+alter table enter_product_request_status_h owner to suppliers_portal;
+
+create table certificate_type
+(
+	id bigint not null
+		constraint certificate_type_pkey
 			primary key,
 	external_id varchar(255),
 	name_ru varchar(255),
@@ -871,49 +1196,151 @@ create table storage_and_transportation_conditions
 	name_en varchar(255)
 );
 
-create table sub_category
+alter table certificate_type owner to suppliers_portal;
+
+create table product_certificate
 (
 	id bigint not null
-		constraint sub_category_pkey
+		constraint product_certificate_pkey
 			primary key,
-	code varchar(255),
-	external_id varchar(255),
+	name varchar(255),
+	active boolean,
+	filename varchar(255),
+	filepath varchar(255),
+	product_id bigint
+		constraint fk_product_certificate__product_id
+			references product,
+	content_type varchar(255) not null,
+	original_filename varchar(500) not null,
+	expire_date date,
+	certificate_type_id bigint
+		constraint fk_certificate
+			references certificate_type,
+	url varchar(500)
+);
+
+alter table product_certificate owner to suppliers_portal;
+
+create table trade_mark
+(
+	id bigint not null
+		constraint trade_mark_pkey
+			primary key,
+	external_id integer,
 	name_ru varchar(255),
 	name_kz varchar(255),
-	name_en varchar(255),
-	otdel_id bigint
-		constraint fk_sub_category__otdel_id
-			references otdel,
-	category_id bigint
-		constraint fk_sub_category__category_id
-			references category,
-	constraint ux_subcategory_category_name_ru
-		unique (category_id, name_ru)
+	name_en varchar(255)
 );
 
-create table subgroup
+alter table trade_mark owner to suppliers_portal;
+
+create table manufacturer
 (
 	id bigint not null
-		constraint subgroup_pkey
+		constraint manufacturer_pkey
 			primary key,
-	code varchar(255),
-	external_id varchar(255),
+	external_id integer,
 	name_ru varchar(255),
 	name_kz varchar(255),
-	name_en varchar(255),
-	group_id bigint
+	name_en varchar(255)
 );
 
-create table tnvd
+alter table manufacturer owner to suppliers_portal;
+
+create table assortiment_status
 (
 	id bigint not null
-		constraint tnvd_pkey
+		constraint assortiment_status_pkey
 			primary key,
-	external_id varchar(255),
 	code varchar(255),
-	name_ru varchar(1500),
-	name_kz varchar(1500),
-	name_en varchar(1500)
+	name_ru varchar(255),
+	name_kz varchar(255),
+	name_en varchar(255)
 );
 
+alter table assortiment_status owner to suppliers_portal;
+
+create table integration_status_h
+(
+	id bigserial not null,
+	status_date timestamp not null,
+	status varchar(50) not null,
+	comment_text text
+);
+
+alter table integration_status_h owner to suppliers_portal;
+
+create view commercial_proposal_info(commercial_proposal_id, product_amount, total_price_with_vat) as
+SELECT pi2.commercial_proposal_id,
+       count(pi2.id)           AS product_amount,
+       sum(pi2.price_with_vat) AS total_price_with_vat
+FROM product_instance pi2
+GROUP BY pi2.commercial_proposal_id
+ORDER BY (count(pi2.id)) DESC;
+
+alter table commercial_proposal_info owner to suppliers_portal;
+
+create sequence sequence_generator;
+
+alter sequence sequence_generator owner to suppliers_portal;
+
+create sequence s_user;
+
+alter sequence s_user owner to suppliers_portal;
+
+create sequence s_commercial_condition;
+
+alter sequence s_commercial_condition owner to suppliers_portal;
+
+create sequence s_product;
+
+alter sequence s_product owner to suppliers_portal;
+
+create sequence s_commercial_proposal;
+
+alter sequence s_commercial_proposal owner to suppliers_portal;
+
+create sequence s_entry_product_request;
+
+alter sequence s_entry_product_request owner to suppliers_portal;
+
+create sequence s_product_photo;
+
+alter sequence s_product_photo owner to suppliers_portal;
+
+create sequence s_proposal_conditions;
+
+alter sequence s_proposal_conditions owner to suppliers_portal;
+
+create sequence s_commercial_proposal_status_h;
+
+alter sequence s_commercial_proposal_status_h owner to suppliers_portal;
+
+create sequence s_product_instance;
+
+alter sequence s_product_instance owner to suppliers_portal;
+
+create sequence s_product_certificate;
+
+alter sequence s_product_certificate owner to suppliers_portal;
+
+create sequence s_reset_password_application;
+
+alter sequence s_reset_password_application owner to suppliers_portal;
+
+create sequence integration_status_h_id_seq;
+
+alter sequence integration_status_h_id_seq owner to suppliers_portal;
+
+create sequence s_organization;
+
+alter sequence s_organization owner to suppliers_portal;
+
+create sequence s_request_step_notification;
+
+alter sequence s_request_step_notification owner to suppliers_portal;
+
+create sequence s_enter_product_request_status_history;
+
+alter sequence s_enter_product_request_status_history owner to suppliers_portal;
 

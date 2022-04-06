@@ -1,0 +1,5 @@
+INSERT INTO public.measurement (id, external_id, name_ru, name_kz, name_en, abr_unit_ru, abr_unit_kz, abr_unit_en) VALUES (1, 19, 'Штука', 'Штука', 'Штука', 'шт.', 'шт.', 'шт.');
+INSERT INTO public.measurement (id, external_id, name_ru, name_kz, name_en, abr_unit_ru, abr_unit_kz, abr_unit_en) VALUES (2, 7, 'Килограмм', 'Килограмм', 'Килограмм', 'кг.', 'кг.', 'кг.');
+INSERT INTO public.measurement (id, external_id, name_ru, name_kz, name_en, abr_unit_ru, abr_unit_kz, abr_unit_en) VALUES (3, 10, 'Миллилитр', 'Миллилитр', 'Миллилитр', 'мл', 'мл', 'мл');
+INSERT INTO public.measurement (id, external_id, name_ru, name_kz, name_en, abr_unit_ru, abr_unit_kz, abr_unit_en) VALUES (4, 5, 'Грамм', 'Грамм', 'Грамм', 'г', 'г', 'г');
+INSERT INTO public.measurement (id, external_id, name_ru, name_kz, name_en, abr_unit_ru, abr_unit_kz, abr_unit_en) VALUES (5, 8, 'Литр', 'Литр', 'Литр', 'л', 'л', 'л');

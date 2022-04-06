@@ -1,0 +1,2 @@
+INSERT INTO public.certificate_type (id, external_id, name_ru, name_kz, name_en) VALUES (1, null, 'Сертификат КМДБ (халал)', 'Сертификат КМДБ (халал)', 'Сертификат КМДБ (халал)');
+INSERT INTO public.certificate_type (id, external_id, name_ru, name_kz, name_en) VALUES (2, null, 'Фото сертификата соответствия товара', 'Фото сертификата соответствия товара', 'Фото сертификата соответствия товара');

@@ -1,0 +1,5 @@
+INSERT INTO public.delivery_conditions (id, external_id, name_ru, name_kz, name_en) VALUES (2, null, 'Доставка в РЦ НСФ', 'РЦ НСФ-ке жеткізу', 'Delivery to RC_NSF');
+INSERT INTO public.delivery_conditions (id, external_id, name_ru, name_kz, name_en) VALUES (3, null, 'Доставка в РЦ ШФ', 'РЦ ШФ-ке жеткізу', 'Delivery to RC_SHF');
+INSERT INTO public.delivery_conditions (id, external_id, name_ru, name_kz, name_en) VALUES (4, null, 'Доставка в Торговые площадки', 'Базарларға жеткізу', 'Delivery to Marketplaces');
+INSERT INTO public.delivery_conditions (id, external_id, name_ru, name_kz, name_en) VALUES (5, null, 'Самовывоз в РЦ', 'РЦ-де алып кету', 'Pickup at the RC');
+INSERT INTO public.delivery_conditions (id, external_id, name_ru, name_kz, name_en) VALUES (1, null, 'Доставка в РЦ ДАМУ', 'РЦ ДАМУ жеткізу', 'Delivery to RC DAMU');

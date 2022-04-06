@@ -1,0 +1,3 @@
+INSERT INTO public.payment_type (id, external_id, name_ru, name_kz, name_en) VALUES (1, null, 'Консигнация', 'Консигнация', 'Консигнация');
+INSERT INTO public.payment_type (id, external_id, name_ru, name_kz, name_en) VALUES (2, null, 'Предоплата', 'Предоплата', 'Предоплата');
+INSERT INTO public.payment_type (id, external_id, name_ru, name_kz, name_en) VALUES (3, null, 'Реализация', 'Реализация', 'Реализация');

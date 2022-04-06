@@ -1,0 +1,2 @@
+INSERT INTO public.rel_proposal_conditions__region (region_id, proposal_conditions_id) VALUES (1, 1201);
+INSERT INTO public.rel_proposal_conditions__region (region_id, proposal_conditions_id) VALUES (1, 1202);

@@ -1,0 +1,2 @@
+INSERT INTO public.proposal_conditions (id, fix_bonus, fix_premium, logist_bonus, account_work, inkoterms, minimal_order_lot, payment_due_date, payment_type_id) VALUES (1201, 22220.00, 0.00, 0.00, 'ggggg', null, null, '10 days', 1);
+INSERT INTO public.proposal_conditions (id, fix_bonus, fix_premium, logist_bonus, account_work, inkoterms, minimal_order_lot, payment_due_date, payment_type_id) VALUES (1202, 22220.00, 0.00, 0.00, 'ggggg', null, null, '10 days', 1);

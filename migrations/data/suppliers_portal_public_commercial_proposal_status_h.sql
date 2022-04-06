@@ -1,0 +1,2 @@
+INSERT INTO public.commercial_proposal_status_h (id, status_date, status, comment_text, user_id, commercial_proposal_id, is_internal) VALUES (1201, '2022-03-23 06:34:49.111859', 'Draft', '', 100000, 1051, false);
+INSERT INTO public.commercial_proposal_status_h (id, status_date, status, comment_text, user_id, commercial_proposal_id, is_internal) VALUES (1202, '2022-03-23 06:35:13.545184', 'ReadyForProcessing', null, 100000, 1051, false);

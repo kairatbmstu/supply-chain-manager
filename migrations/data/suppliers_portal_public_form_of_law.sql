@@ -1,0 +1,9 @@
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (1, 'ao', true, 'АО', 'АО', 'АО');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (2, 'ip', true, 'ИП', 'ИП', 'ИП');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (3, 'too', true, 'ТОО', 'ТОО', 'ТОО');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (4, 'ip_nr', false, 'ИП', 'ИП', 'ИП');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (5, 'ooo_nr', false, 'ООО', 'ООО', 'ООО');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (6, 'odo_nr', false, 'ОДО', 'ОДО', 'ОДО');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (7, 'ao_nr', false, 'АО', 'АО', 'АО');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (8, 'zao_nr', false, 'ЗАО', 'ЗАО', 'ЗАО');
+INSERT INTO public.form_of_law (id, code, is_resident, name_ru, name_kz, name_en) VALUES (9, 'oao_nr', false, 'ОАО', 'ОАО', 'ОАО');

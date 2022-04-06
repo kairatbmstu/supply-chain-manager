@@ -82,6 +82,16 @@ func (r RegistrationController) PostRegisterOrganizationAdditionalInfo(c *gin.Co
 	c.HTML(http.StatusOK, "register_organization_additional_info.html", gin.H{})
 }
 
+func (r RegistrationController) GetContantPersonInfo(c *gin.Context) {
+	initRegistrationForm(c)
+	c.HTML(http.StatusOK, "register_organization_additional_info.html", gin.H{})
+}
+
+func (r RegistrationController) PostContactPerson(c *gin.Context) {
+	initRegistrationForm(c)
+	c.HTML(http.StatusOK, "register_organization_additional_info.html", gin.H{})
+}
+
 func initRegistrationForm(c *gin.Context) {
 	session := sessions.Default(c)
 

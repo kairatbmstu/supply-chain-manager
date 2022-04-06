@@ -1,0 +1,2 @@
+INSERT INTO public.barcode_mask (code, external_id, name_ru, name_kz, name_en) VALUES ('BarcodeMask_20', '13', '20', '20', '20');
+INSERT INTO public.barcode_mask (code, external_id, name_ru, name_kz, name_en) VALUES ('BarcodeMask_21', 'W', '21', '21', '21');

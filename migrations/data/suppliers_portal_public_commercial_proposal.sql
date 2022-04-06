@@ -1,0 +1,1 @@
+INSERT INTO public.commercial_proposal (id, process_instance, process_date, status, proposal_conditions_id, organization_id, otdel_id, delivery_conditions_id, enter_product_request_id, currency) VALUES (1051, null, '2022-03-23 06:35:13.546824', 'ReadyForProcessing', 1202, 100000, 13, 2, null, 'USD');

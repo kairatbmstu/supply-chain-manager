@@ -1,0 +1,17 @@
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (1, null, 'Бежевый', 'Бежевый', 'Бежевый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (2, null, 'Белый', 'Белый', 'Белый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (3, null, 'Бесцветный', 'Бесцветный', 'Бесцветный');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (4, null, 'Голубой', 'Голубой', 'Голубой');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (5, null, 'Другой', 'Другой', 'Другой');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (6, null, 'Желтый', 'Желтый', 'Желтый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (7, null, 'Зеленый', 'Зеленый', 'Зеленый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (8, null, 'Кислотный', 'Кислотный', 'Кислотный');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (9, null, 'Коричневый', 'Коричневый', 'Коричневый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (10, null, 'Красный', 'Красный', 'Красный');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (11, null, 'Оранжевый', 'Оранжевый', 'Оранжевый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (12, null, 'Розовый', 'Розовый', 'Розовый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (13, null, 'Серый', 'Серый', 'Серый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (14, null, 'Синий', 'Синий', 'Синий');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (15, null, 'Сиреневый', 'Сиреневый', 'Сиреневый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (16, null, 'Фиолетовый', 'Фиолетовый', 'Фиолетовый');
+INSERT INTO public.color (id, external_id, name_ru, name_kz, name_en) VALUES (17, null, 'Черный', 'Черный', 'Черный');

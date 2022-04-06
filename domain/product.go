@@ -180,3 +180,44 @@ type ProductField struct {
 	FieldNameEn string
 	SubCategory SubCategory
 }
+
+type ProductFieldPrivilegeEnum string
+
+const (
+	Read      string = "Read"
+	ReadWrite string = "ReadWrite"
+	NoAccess  string = "NoAccess"
+)
+
+type StageEnum string
+
+const (
+	/* Всего 8 стадий проверки */
+	Product_Create     string = "Product_Create"     /* Стадия 1) Проверка 1-го уровня полей*/
+	KP_Create          string = "KP_Create"          /* Стадия 2) Проверка полей , относящихся к КП*/
+	KP_KM_Update       string = "KP_KM_Update"       /* Стадия 3) Проверка полей товаров при корректировки КМ в КП*/
+	KP_RN_Update       string = "KP_RN_Update"       /* Стадия 3) Проверка полей товаров при корректировки РН в КП*/
+	Issue_Create       string = "Issue_Create"       /*  Стадия 4) Проверка полей товаров при создании "Заявки на ввод"*/
+	Issue_KM_Update    string = "Issue_KM_Update"    /*  Стадия 5) Проверка полей товаров при дополнения КМ "Заявки на ввод"*/
+	Issue_OUKD_Update  string = "Issue_OUKD_Update"  /* Стадия 6) Проверка полей товаров при дополнения ОУКД "Заявки на ввод"*/
+	Issue_BUCP_Update  string = "Issue_BUCP_Update"  /* Стадия 7) Проверка полей товаров при дополнения БУЦП "Заявки на ввод"*/
+	Stage8_Assortiment string = "Stage8_Assortiment" /* Стадия 8) Ассортимент */
+)
+
+type ProductFieldStage struct {
+	ID                int
+	Stage             StageEnum
+	PrivilegeSupplier ProductFieldPrivilegeEnum
+	PrivilegeKM       ProductFieldPrivilegeEnum
+	PrivilegeRN       ProductFieldPrivilegeEnum
+	PrivilegeOUKD     ProductFieldPrivilegeEnum
+	PrivilegeDUCP     ProductFieldPrivilegeEnum
+	ProductField      ProductField
+}
+
+type ProductFieldInCategory struct {
+	id           int
+	Active       bool
+	SubCategory  SubCategory
+	ProductField ProductField
+}

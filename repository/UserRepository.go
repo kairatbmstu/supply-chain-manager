@@ -1,9 +1,5 @@
 package repository
 
-import "example.com/m/v2/domain"
-
-var users []domain.User
-
 type UserRepository struct {
 }
 

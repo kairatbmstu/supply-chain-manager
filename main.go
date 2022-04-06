@@ -1,7 +1,9 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/gob"
+	"log"
 
 	"example.com/m/v2/controller"
 	"example.com/m/v2/dto"
@@ -12,6 +14,15 @@ import (
 )
 
 func main() {
+
+	connStr := "postgresql://supplier_portal:123456@localhost/todos?sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer db.Close()
+
 	router := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
 	store.Options(sessions.Options{MaxAge: 60 * 60 * 24})
@@ -37,6 +48,9 @@ func main() {
 
 	router.GET("/register/organization_additional_info", controller.RegistrationControllerInstance.GetRegisterOrganizationAdditionalInfo)
 	router.POST("/register/organization_additional_info", controller.RegistrationControllerInstance.PostRegisterOrganizationAdditionalInfo)
+
+	router.GET("/register/contact_person_info", controller.RegistrationControllerInstance.GetContantPersonInfo)
+	router.POST("/register/contact_person_info", controller.RegistrationControllerInstance.PostContactPerson)
 
 	router.Run(":8080")
 }

@@ -1,0 +1,13 @@
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (1, null, 'Состав', 'Состав', 'Состав');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (2, null, 'Характеристики товара или его свойства', 'Характеристики товара или его свойства', 'Характеристики товара или его свойства');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (3, null, 'Пищевая ценность, 100г', 'Пищевая ценность, 100г', 'Пищевая ценность, 100г');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (4, null, 'БИО-ЭКО-ВЕГАН (Food)', 'БИО-ЭКО-ВЕГАН (Food)', 'БИО-ЭКО-ВЕГАН (Food)');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (5, null, 'Поля необходимые к заполнению для овощей и фрутов', 'Поля необходимые к заполнению для овощей и фрутов', 'Поля необходимые к заполнению для овощей и фрутов');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (6, null, 'Температурный режим хранения (от - до в оС)', 'Температурный режим хранения (от - до в оС)', 'Температурный режим хранения (от - до в оС)');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (7, null, 'Только для алкоголя', 'Только для алкоголя', 'Только для алкоголя');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (8, null, 'Упаковка первого уровня', 'Упаковка первого уровня', 'Упаковка первого уровня');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (9, null, 'Другие', 'Другие', 'Другие');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (10, null, 'Базовая единица измерения', 'Базовая единица измерения', 'Базовая единица измерения');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (11, null, 'Фото', 'Фото', 'Фото');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (12, null, 'Коммерческие условия', 'Коммерческие условия', 'Коммерческие условия');
+INSERT INTO public.field_group (id, external_id, name_ru, name_kz, name_en) VALUES (13, null, 'Ассортимент', 'Ассортимент', 'Ассортимент');

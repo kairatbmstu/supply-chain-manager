@@ -1,0 +1,17 @@
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (1, '1', null, 'Алкоголь, табак', 'Алкоголь, табак', 'Алкоголь, табак');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (2, '2', null, 'Алкоголь, табак элит', 'Алкоголь, табак элит', 'Алкоголь, табак элит');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (3, '3', null, 'Бытовая химия', 'Бытовая химия', 'Бытовая химия');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (4, '4', null, 'Все для дома', 'Все для дома', 'Все для дома');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (5, '5', null, 'Галантерея и Аксессуары', 'Галантерея и Аксессуары', 'Галантерея и Аксессуары');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (6, '6', null, 'Дача, сад, авто, ремонт', 'Дача, сад, авто, ремонт', 'Дача, сад, авто, ремонт');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (7, '7', null, 'Другое', 'Другое', 'Другое');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (9, '9', null, 'Канцелярские товары, хобби, книги', 'Канцелярские товары, хобби, книги', 'Канцелярские товары, хобби, книги');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (10, '10', null, 'Красота и здоровье', 'Красота и здоровье', 'Красота и здоровье');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (11, '11', null, 'Напитки', 'Напитки', 'Напитки');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (12, '12', null, 'Одежда и обувь', 'Одежда и обувь', 'Одежда и обувь');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (13, '13', null, 'Продукты', 'Продукты', 'Продукты');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (14, '14', null, 'Спорт и отдых', 'Спорт и отдых', 'Спорт и отдых');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (15, '15', null, 'Средства гигиены', 'Средства гигиены', 'Средства гигиены');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (16, '16', null, 'Товары для детей', 'Товары для детей', 'Товары для детей');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (17, '17', null, 'Товары для животных', 'Товары для животных', 'Товары для животных');
+INSERT INTO public.category (id, code, external_id, name_ru, name_kz, name_en) VALUES (18, '18', null, 'Электротовары', 'Электротовары', 'Электротовары');
