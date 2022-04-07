@@ -28,8 +28,6 @@ func main() {
 	gob.Register(dto.UserDTO{})
 	gob.Register(forms.LoginForm{})
 	gob.Register(forms.RegistrationForm{})
-	gob.Register(forms.ResidentDetailsForm{})
-	gob.Register(forms.ResidentTypeForm{})
 
 	router.Use(sessions.Sessions("mysession", store))
 	router.Static("web/css", "web/css")
@@ -49,6 +47,9 @@ func main() {
 
 	router.GET("/register/contact_person_info", controller.RegistrationControllerInstance.GetContantPersonInfo)
 	router.POST("/register/contact_person_info", controller.RegistrationControllerInstance.PostContactPerson)
+
+	router.GET("/register/complete_registration", controller.RegistrationControllerInstance.GetCompleteRegistration)
+	router.POST("/register/complete_registration", controller.RegistrationControllerInstance.PostCompleteRegistration)
 
 	router.Run(":8080")
 }

@@ -2,7 +2,7 @@ package forms
 
 type RegistrationForm struct {
 	ResidentType          string `form:"resident_type"`
-	FormOfLawID           int    `form:"form_of_law_code"`
+	FormOfLawID           int    `form:"form_of_law"`
 	OrgName               string `form:"org_name"`
 	OrgPhone              string `form:"org_phone"`
 	IINBIN                string `form:"iin_bin"`

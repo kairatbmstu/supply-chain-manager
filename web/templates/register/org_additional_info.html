@@ -1,0 +1,101 @@
+{{ template "header" }}
+
+    <div id="container">
+         <div style="max-width: 530px;  margin: 100px auto auto auto; ">
+           <h1>Регистрация в «Магнум»</h1>
+         </div>
+
+          <form method="POST" action="/register/org_additional_info"  class="registration-form row g-3">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Телефон организации:</label>
+                <input type="text" class="form-control" id="phoneNumber" 
+                      value="{{ .regForm.OrgPhone }}" required>
+                      <div  class="invalid-feedback">
+                        Не заполнено обязательное поле
+                    </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Сайт организации:</label>
+                <input type="text" class="form-control" id="orgSite"
+                      value="{{ .regForm.OrgSite }}"   required>
+                      <div  class="invalid-feedback">
+                        Не заполнено обязательное поле
+                      </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">ИИН/БИН:</label>
+                <input type="text" class="form-control" id="iinbin" 
+                      value="{{ .regForm.IINBIN }}" required>
+                      <div  class="invalid-feedback">
+                        Не заполнено обязательное поле
+                    </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Номер счета/IBAN:</label>
+                <input type="text" class="form-control" id="accoutNumber"
+                      value="{{ .regForm.OrgSite }}"   required>
+                      <div  class="invalid-feedback">
+                        Не заполнено обязательное поле
+                      </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">БИК:</label>
+                <input type="text" class="form-control" id="bic" name="bic"
+                      value="{{ .regForm.BIC }}" required>
+                      <div  class="invalid-feedback">
+                        Не заполнено обязательное поле
+                    </div>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">КБЕ:</label>
+                <input type="text" class="form-control" id="kbe"
+                      value="{{ .regForm.KBE }}"  required>
+                      <div  class="invalid-feedback">
+                        Не заполнено обязательное поле
+                      </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">Сайт организации:</label>
+                <input name="org_site" type="text" class="form-control is-valid mb-3" id="orgSite"
+                      value="{{ .regForm.OrgSite }}"  required>
+                      <div  class="invalid-feedback" >
+                        Не заполнено обязательное поле
+                      </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="form-check col-md-6">
+                <label class="form-label" for="stm">
+                  STM
+                </label>
+                <input class="form-check-input" name="stm" type="checkbox" value="checked" id="stm">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="form-check col-md-6">
+                <label class="form-label" for="vat">
+                  VAT
+                </label>
+                <input class="form-check-input" name="vat" type="checkbox" value="checked" id="vat">
+              </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Следующий шаг</button>
+              </div>
+            </div>
+
+            
+          </form>
+    </div>
+
+{{ template "footer" }}
