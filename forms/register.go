@@ -24,6 +24,28 @@ type RegistrationForm struct {
 	ConfirmationPassword  string `form:"confirmation_password"`
 }
 
+type RegistrationFormFeedback struct {
+	ErrorResidentType          string
+	ErrorFormOfLawID           string
+	ErrorOrgName               string
+	ErrorOrgPhone              string
+	ErrorIINBIN                string
+	ErrorBIC                   string
+	ErrorAccountNumber         string
+	ErrorKBE                   string
+	ErrorGLN                   string
+	ErrorOrgSite               string
+	ErrorRegionID              string
+	ErrorOrgAddress            string
+	ErrorSTM                   string
+	ErrorVAT                   string
+	ErrorEmail                 string
+	ErrorContactPersonFullname string
+	ErrorContactPersonPosition string
+	ErrorPassword              string
+	ErrorConfirmationPassword  string
+}
+
 func (r RegistrationForm) Println() {
 	fmt.Println("ResidentType : 		 ", r.ResidentType)
 	fmt.Println("FormOfLawID : 			 ", r.FormOfLawID)

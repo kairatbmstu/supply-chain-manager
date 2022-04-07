@@ -43,6 +43,9 @@ func (r RegistrationController) PostResidentType(c *gin.Context) {
 
 func (r RegistrationController) GetMainInfo(c *gin.Context) {
 	initRegistrationForm(c)
+	session := sessions.Default(c)
+	session.AddFlash("Пожалуйста заполните поле Наименование организации")
+	session.Save()
 
 	registrationForm := getRegistrationForm(c)
 	c.HTML(http.StatusOK, "org_main_info.html", gin.H{
@@ -53,6 +56,8 @@ func (r RegistrationController) GetMainInfo(c *gin.Context) {
 
 func (r RegistrationController) PostOrgMainInfo(c *gin.Context) {
 	initRegistrationForm(c)
+	session := sessions.Default(c)
+
 	var regForm = getRegistrationForm(c)
 
 	var err = c.ShouldBind(&regForm)
@@ -60,6 +65,13 @@ func (r RegistrationController) PostOrgMainInfo(c *gin.Context) {
 	if err != nil {
 		log.Println("error : ", err)
 		c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+		return
+	}
+
+	if regForm.OrgName == "" {
+		session.AddFlash("Пожалуйста заполните поле Наименование организации")
+		session.Save()
+		c.Redirect(303, "/register/org_main_info")
 		return
 	}
 

@@ -27,7 +27,7 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label class="form-label">ИИН/БИН:</label>
-                <input type="text" class="form-control" id="iinbin" 
+                <input type="number" class="form-control" id="iinbin" 
                       value="{{ .regForm.IINBIN }}" required>
                       <div  class="invalid-feedback">
                         Не заполнено обязательное поле
@@ -45,7 +45,7 @@
             <div class="row mb-3">
               <div class="col-md-6">
                 <label class="form-label">БИК:</label>
-                <input type="text" class="form-control" id="bic" name="bic"
+                <input type="number" class="form-control" id="bic" name="bic"
                       value="{{ .regForm.BIC }}" required>
                       <div  class="invalid-feedback">
                         Не заполнено обязательное поле
@@ -53,7 +53,7 @@
               </div>
               <div class="col-md-6">
                 <label class="form-label">КБЕ:</label>
-                <input type="text" class="form-control" id="kbe"
+                <input type="number" class="form-control" id="kbe"
                       value="{{ .regForm.KBE }}"  required>
                       <div  class="invalid-feedback">
                         Не заполнено обязательное поле
