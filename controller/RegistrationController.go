@@ -43,14 +43,10 @@ func (r RegistrationController) PostResidentType(c *gin.Context) {
 func (r RegistrationController) GetMainInfo(c *gin.Context) {
 	initRegistrationForm(c)
 
-	if getRegistrationForm(c) != nil {
-		registrationForm := getRegistrationForm(c)
-		c.HTML(http.StatusOK, "org_main_info.html", gin.H{
-			"regForm": registrationForm,
-		})
-	} else {
-		c.HTML(http.StatusOK, "org_main_info.html", gin.H{})
-	}
+	registrationForm := getRegistrationForm(c)
+	c.HTML(http.StatusOK, "org_main_info.html", gin.H{
+		"regForm": registrationForm,
+	})
 
 }
 
@@ -69,14 +65,10 @@ func (r RegistrationController) PostOrgMainInfo(c *gin.Context) {
 func (r RegistrationController) GetRegisterOrganizationAdditionalInfo(c *gin.Context) {
 	initRegistrationForm(c)
 
-	if getRegistrationForm(c) != nil {
-		regForm := getRegistrationForm(c)
-		c.HTML(http.StatusOK, "org_additional_info.html", gin.H{
-			"regForm": regForm,
-		})
-	} else {
-		c.HTML(http.StatusOK, "org_additional_info.html", gin.H{})
-	}
+	regForm := getRegistrationForm(c)
+	c.HTML(http.StatusOK, "org_additional_info.html", gin.H{
+		"regForm": regForm,
+	})
 
 }
 
@@ -95,27 +87,20 @@ func (r RegistrationController) PostRegisterOrganizationAdditionalInfo(c *gin.Co
 func (r RegistrationController) GetContantPersonInfo(c *gin.Context) {
 	initRegistrationForm(c)
 
-	if getRegistrationForm(c) != nil {
-		registrationForm := getRegistrationForm(c)
-		c.HTML(http.StatusOK, "contact_person_info.html", gin.H{
-			"regForm": registrationForm,
-		})
-	} else {
-		c.HTML(http.StatusOK, "contact_person_info.html", gin.H{})
-	}
+	registrationForm := getRegistrationForm(c)
+	c.HTML(http.StatusOK, "contact_person_info.html", gin.H{
+		"regForm": registrationForm,
+	})
 
 }
 
 func (r RegistrationController) GetCompleteRegistration(c *gin.Context) {
 	initRegistrationForm(c)
-	if getRegistrationForm(c) != nil {
-		registrationForm := getRegistrationForm(c)
-		c.HTML(http.StatusOK, "complete_registration.html", gin.H{
-			"regForm": registrationForm,
-		})
-	} else {
-		c.HTML(http.StatusOK, "complete_registration.html", gin.H{})
-	}
+	registrationForm := getRegistrationForm(c)
+	c.HTML(http.StatusOK, "complete_registration.html", gin.H{
+		"regForm": registrationForm,
+	})
+
 }
 
 func (r RegistrationController) PostCompleteRegistration(c *gin.Context) {

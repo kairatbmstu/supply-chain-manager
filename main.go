@@ -53,6 +53,3 @@ func main() {
 
 	router.Run(":8080")
 }
-
-type ApplicationContext struct {
-}
