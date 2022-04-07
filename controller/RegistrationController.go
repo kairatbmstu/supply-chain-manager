@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -23,7 +24,7 @@ func (r RegistrationController) PostResidentType(c *gin.Context) {
 	session := sessions.Default(c)
 	var regForm forms.RegistrationForm
 	if c.ShouldBind(&regForm) == nil {
-		log.Println("regForm : ", regForm)
+		regForm.Println()
 
 		if session.Get("registration") != nil {
 			registrationForm := session.Get("registration").(forms.RegistrationForm)
@@ -52,12 +53,19 @@ func (r RegistrationController) GetMainInfo(c *gin.Context) {
 
 func (r RegistrationController) PostOrgMainInfo(c *gin.Context) {
 	initRegistrationForm(c)
-
 	var regForm = getRegistrationForm(c)
-	if c.ShouldBind(&regForm) == nil {
-		log.Println("regForm : ", regForm)
-		saveRegistrationForm(c, regForm)
+
+	var err = c.ShouldBind(&regForm)
+
+	if err != nil {
+		log.Println("error : ", err)
+		c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+		return
 	}
+
+	fmt.Println(" regForm : ")
+	regForm.Println()
+	saveRegistrationForm(c, regForm)
 
 	c.Redirect(http.StatusFound, "/register/org_additional_info")
 }
@@ -77,7 +85,7 @@ func (r RegistrationController) PostRegisterOrganizationAdditionalInfo(c *gin.Co
 
 	var regForm = getRegistrationForm(c)
 	if c.ShouldBind(&regForm) == nil {
-		log.Println("regForm : ", regForm)
+		regForm.Println()
 		saveRegistrationForm(c, regForm)
 	}
 
@@ -94,6 +102,18 @@ func (r RegistrationController) GetContantPersonInfo(c *gin.Context) {
 
 }
 
+func (r RegistrationController) PostContactPerson(c *gin.Context) {
+	initRegistrationForm(c)
+
+	var regForm = getRegistrationForm(c)
+	if c.ShouldBind(&regForm) == nil {
+		regForm.Println()
+		saveRegistrationForm(c, regForm)
+	}
+
+	c.Redirect(http.StatusFound, "/register/complete_registration")
+}
+
 func (r RegistrationController) GetCompleteRegistration(c *gin.Context) {
 	initRegistrationForm(c)
 	registrationForm := getRegistrationForm(c)
@@ -107,22 +127,10 @@ func (r RegistrationController) PostCompleteRegistration(c *gin.Context) {
 	initRegistrationForm(c)
 	var regForm = getRegistrationForm(c)
 	if c.ShouldBind(&regForm) == nil {
-		log.Println("regForm : ", regForm)
+		regForm.Println()
 		saveRegistrationForm(c, regForm)
 	}
 	c.HTML(http.StatusOK, "complete_registration.html", gin.H{})
-}
-
-func (r RegistrationController) PostContactPerson(c *gin.Context) {
-	initRegistrationForm(c)
-
-	var regForm = getRegistrationForm(c)
-	if c.ShouldBind(&regForm) == nil {
-		log.Println("regForm : ", regForm)
-		saveRegistrationForm(c, regForm)
-	}
-
-	c.Redirect(http.StatusFound, "/register/complete_registration")
 }
 
 func initRegistrationForm(c *gin.Context) {
