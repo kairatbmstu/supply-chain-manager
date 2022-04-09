@@ -28,6 +28,7 @@ func (c UserRepository) GetOne(id int) (*domain.User, error) {
 	rows, err := database.DB.Query(query, args...)
 
 	if err != nil {
+		log.Println("db query : ", err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -35,6 +36,7 @@ func (c UserRepository) GetOne(id int) (*domain.User, error) {
 		&user.Password, &user.IsActive, &user.ActiveDirectoryLink, &user.RegDatetime,
 		&user.OtdelID, &user.OrganizationID, &user.AllowSelfRegistration)
 	if err != nil {
+		log.Println("row Scan error : ", err)
 		if err == sql.ErrNoRows {
 			return nil, nil
 		}
@@ -43,6 +45,7 @@ func (c UserRepository) GetOne(id int) (*domain.User, error) {
 	fmt.Println("user entity :", user)
 	err = rows.Err()
 	if err != nil {
+		log.Println("rows.Err() error : ", err)
 		return nil, err
 	}
 
@@ -60,11 +63,11 @@ func (c UserRepository) Create(user *domain.User) (*domain.User, error) {
 		user.Password, user.IsActive, user.ActiveDirectoryLink, user.RegDatetime,
 		user.OtdelID, user.OrganizationID, user.AllowSelfRegistration)
 	query, args := ib.Build()
-	fmt.Println("query : ", query)
-	fmt.Println(args)
+	log.Println("query : ", query)
+	log.Println(args)
 	rows, err := database.DB.Query(query, args...)
 	if err != nil {
-		log.Println("err : ", err)
+		log.Println("db query err : ", err)
 		return nil, err
 	}
 	defer rows.Close()
@@ -73,13 +76,13 @@ func (c UserRepository) Create(user *domain.User) (*domain.User, error) {
 		if err == sql.ErrNoRows {
 			return nil, nil
 		}
-		log.Println("err : ", err)
+		log.Println("rows scan err : ", err)
 		return nil, err
 	}
-	fmt.Println("user entity :", user)
+	log.Println("user entity :", user)
 	err = rows.Err()
 	if err != nil {
-		log.Println("err : ", err)
+		log.Println("rows.Err() err : ", err)
 		return nil, err
 	}
 
@@ -100,6 +103,25 @@ func (c UserRepository) GetAll() ([]*domain.User, error) {
 
 func (c UserRepository) FindByUsername() (*domain.User, error) {
 	return nil, nil
+}
+
+func (c UserRepository) nextID() (int, error) {
+	var id int
+	query := "select nextval('s_user')"
+	rows, err := database.DB.Query(query, nil)
+
+	if err != nil {
+		log.Println("db query error  : ", err)
+		return 0, err
+	}
+
+	err = rows.Scan(&id)
+	if err != nil {
+		log.Println("call nextID() row.Scan error  : ", err)
+		return 0, err
+	}
+
+	return id, nil
 }
 
 type UserCriteria struct {
