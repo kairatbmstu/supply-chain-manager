@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/gob"
+	"log"
 
 	"example.com/m/v2/controller"
+	"example.com/m/v2/database"
 	"example.com/m/v2/dto"
 	"example.com/m/v2/forms"
 	"github.com/gin-contrib/sessions"
@@ -12,14 +14,11 @@ import (
 )
 
 func main() {
-
-	// connStr := "postgresql://supplier_portal:123456@localhost/todos?sslmode=disable"
-	// db, err := sql.Open("postgres", connStr)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
-	// defer db.Close()
+	DB, err := database.ConnectDatabase()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer DB.Close()
 
 	router := gin.Default()
 	store := cookie.NewStore([]byte("secret"))

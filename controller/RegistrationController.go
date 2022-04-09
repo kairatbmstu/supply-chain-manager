@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"example.com/m/v2/forms"
+	"example.com/m/v2/service"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
@@ -77,7 +78,13 @@ func (r RegistrationController) PostOrgMainInfo(c *gin.Context) {
 
 	fmt.Println(" regForm : ")
 	regForm.Println()
-	saveRegistrationForm(c, regForm)
+	session.Set("registration", regForm)
+	err = session.Save()
+	if err != nil {
+		log.Println("error : ", err)
+		c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+		return
+	}
 
 	c.Redirect(http.StatusFound, "/register/org_additional_info")
 }
@@ -98,7 +105,13 @@ func (r RegistrationController) PostRegisterOrganizationAdditionalInfo(c *gin.Co
 	var regForm = getRegistrationForm(c)
 	if c.ShouldBind(&regForm) == nil {
 		regForm.Println()
-		saveRegistrationForm(c, regForm)
+		err := saveSession(c, regForm)
+		if err != nil {
+			log.Println("error : ", err)
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
+
 	}
 
 	c.Redirect(http.StatusFound, "/register/contact_person_info")
@@ -120,10 +133,25 @@ func (r RegistrationController) PostContactPerson(c *gin.Context) {
 	var regForm = getRegistrationForm(c)
 	if c.ShouldBind(&regForm) == nil {
 		regForm.Println()
-		saveRegistrationForm(c, regForm)
+		session := sessions.Default(c)
+		session.Set("registration", regForm)
+		err := session.Save()
+		if err != nil {
+			log.Println("error : ", err)
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
 	}
 
 	c.Redirect(http.StatusFound, "/register/complete_registration")
+}
+
+func (r RegistrationController) GetWaiting(c *gin.Context) {
+	c.HTML(http.StatusOK, "waiting.html", gin.H{})
+}
+
+func (r RegistrationController) PostWaiting(c *gin.Context) {
+	c.Redirect(http.StatusFound, "/")
 }
 
 func (r RegistrationController) GetCompleteRegistration(c *gin.Context) {
@@ -132,7 +160,6 @@ func (r RegistrationController) GetCompleteRegistration(c *gin.Context) {
 	c.HTML(http.StatusOK, "complete_registration.html", gin.H{
 		"regForm": registrationForm,
 	})
-
 }
 
 func (r RegistrationController) PostCompleteRegistration(c *gin.Context) {
@@ -140,7 +167,27 @@ func (r RegistrationController) PostCompleteRegistration(c *gin.Context) {
 	var regForm = getRegistrationForm(c)
 	if c.ShouldBind(&regForm) == nil {
 		regForm.Println()
-		saveRegistrationForm(c, regForm)
+		err := saveSession(c, regForm)
+		if err != nil {
+			log.Println("error : ", err)
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
+
+		registrationCommand := forms.RegistrationFormMapperInstance.Map(regForm)
+		userDto, err := service.RegistrationServiceInstance.RegisterUser(registrationCommand)
+
+		if err != nil {
+			log.Println("error : ", err)
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
+
+		if userDto != nil {
+			c.Redirect(http.StatusFound, "/register/waiting")
+			return
+		}
+
 	}
 	c.HTML(http.StatusOK, "complete_registration.html", gin.H{})
 }
@@ -168,13 +215,9 @@ func getRegistrationForm(c *gin.Context) *forms.RegistrationForm {
 	return nil
 }
 
-func saveRegistrationForm(c *gin.Context, registrationForm *forms.RegistrationForm) {
+func saveSession(c *gin.Context, registrationForm *forms.RegistrationForm) error {
 	session := sessions.Default(c)
 	session.Set("registration", registrationForm)
 	err := session.Save()
-	if err != nil {
-		log.Println("error : ", err)
-		c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
-		return
-	}
+	return err
 }

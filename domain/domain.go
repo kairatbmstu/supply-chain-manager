@@ -1,5 +1,7 @@
 package domain
 
+import "time"
+
 type Currency string
 
 const (
@@ -29,9 +31,21 @@ const (
 )
 
 type User struct {
-	Username string
-	Email    string
-	Password string
+	ID                    int
+	IIN                   string
+	FirstName             string
+	LastName              string
+	MiddleName            string
+	Phone                 string
+	IsActive              bool
+	ActiveDirectoryLink   string
+	RegDatetime           time.Time
+	OtdelID               int
+	OrganizationID        int
+	Username              string
+	Email                 string
+	Password              string
+	AllowSelfRegistration bool
 }
 
 type Role struct {

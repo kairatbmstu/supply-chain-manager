@@ -1,19 +1,19 @@
 package dto
 
 type RegistrationCommand struct {
-	ResidentType          string
-	FormOfLawCode         string
+	IsResident            bool
+	FormOfLawID           int
 	OrganizationPhone     string
-	IIN_BIN               string
+	IINBIN                string
 	BIC                   string
 	AccountNumber         string
 	KBE                   string
 	GLN                   string
 	OrganizationSite      string
-	RegionCode            string
-	Address               string
-	STM                   string
-	VAT                   string
+	RegionID              int
+	OrgAddress            string
+	IsSTM                 bool
+	IsVAT                 bool
 	Email                 string
 	ContactPersonFullname string
 	ContactPersonPosition string
@@ -196,4 +196,19 @@ type ProductFieldDTO struct {
 	FieldNameRu string
 	FieldNameEn string
 	SubCategory SubCategoryDTO
+}
+
+type ErrorDTO struct {
+	ErrorCode    string
+	ErrorMessage string
+	FieldValues  []FieldValueDTO
+}
+
+func (e ErrorDTO) Error() string {
+	return e.ErrorMessage
+}
+
+type FieldValueDTO struct {
+	FieldName    string
+	ErrorMessage string
 }

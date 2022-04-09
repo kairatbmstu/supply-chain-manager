@@ -26,6 +26,11 @@ github.com/gorilla/context
 github.com/gorilla/securecookie
 # github.com/gorilla/sessions v1.2.0
 github.com/gorilla/sessions
+# github.com/huandu/go-sqlbuilder v1.13.0
+## explicit
+github.com/huandu/go-sqlbuilder
+# github.com/huandu/xstrings v1.3.2
+github.com/huandu/xstrings
 # github.com/json-iterator/go v1.1.9
 github.com/json-iterator/go
 # github.com/leodido/go-urn v1.2.0
