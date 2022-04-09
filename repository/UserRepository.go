@@ -65,22 +65,14 @@ func (c UserRepository) Create(user *domain.User) (*domain.User, error) {
 	query, args := ib.Build()
 	log.Println("query : ", query)
 	log.Println(args)
-	rows, err := database.DB.Query(query, args...)
+	result, err := database.DB.Exec(query, args...)
 	if err != nil {
 		log.Println("db query err : ", err)
 		return nil, err
 	}
-	defer rows.Close()
-	err = rows.Scan()
-	if err != nil {
-		if err == sql.ErrNoRows {
-			return nil, nil
-		}
-		log.Println("rows scan err : ", err)
-		return nil, err
-	}
-	log.Println("user entity :", user)
-	err = rows.Err()
+
+	newid, err := result.LastInsertId()
+	user.ID = int(newid)
 	if err != nil {
 		log.Println("rows.Err() err : ", err)
 		return nil, err
@@ -94,6 +86,16 @@ func (c UserRepository) GrantRoleToUser(user *domain.User, role domain.Role) (*d
 }
 
 func (c UserRepository) Update(user *domain.User) (*domain.User, error) {
+	ub := sqlbuilder.NewUpdateBuilder()
+	query, args := ub.Update("app_user").
+		Set(
+			"visited = visited + 1",
+		).
+		Where(
+			"id = 1234",
+		).Build()
+
+	database.DB.Exec(query, args)
 	return nil, nil
 }
 
