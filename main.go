@@ -50,5 +50,8 @@ func main() {
 	router.GET("/register/complete_registration", controller.RegistrationControllerInstance.GetCompleteRegistration)
 	router.POST("/register/complete_registration", controller.RegistrationControllerInstance.PostCompleteRegistration)
 
+	router.GET("/register/waiting", controller.RegistrationControllerInstance.GetWaiting)
+	router.POST("/register/waiting", controller.RegistrationControllerInstance.PostWaiting)
+
 	router.Run(":8080")
 }
