@@ -2,10 +2,8 @@ package main
 
 import (
 	"encoding/gob"
-	"log"
 
 	"example.com/m/v2/controller"
-	"example.com/m/v2/database"
 	"example.com/m/v2/dto"
 	"example.com/m/v2/forms"
 	"github.com/gin-contrib/sessions"
@@ -14,11 +12,11 @@ import (
 )
 
 func main() {
-	DB, err := database.ConnectDatabase()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer DB.Close()
+	// DB, err := database.ConnectDatabase()
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer DB.Close()
 
 	router := gin.Default()
 	store := cookie.NewStore([]byte("secret"))
