@@ -11,20 +11,20 @@
 
   <div class="card" style="max-width: 530px;  margin: 100px auto auto auto;">
     <div class="card-body">
-      <form method="POST" action="/register/org_additional_info">
+      <form id="form" method="POST" action="/register/org_additional_info">
         <div class="row mb-3">
           <div class="col-md-6">
             <label class="form-label">Телефон организации:</label>
             <input type="text" class="form-control" id="phoneNumber" placeholder="+77771234567"
               value="{{ .regForm.OrgPhone }}">
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" id="phoneNumber-error">
               Не заполнено обязательное поле
             </div>
           </div>
           <div class="col-md-6">
             <label class="form-label">Сайт организации:</label>
             <input type="text" class="form-control" id="orgSite" placeholder="ivanov.ru" value="{{ .regForm.OrgSite }}">
-            <div class="invalid-feedback">
+            <div class="invalid-feedback"  id="orgSite-error">
               Не заполнено обязательное поле
             </div>
           </div>
@@ -34,7 +34,7 @@
             <label class="form-label">ИИН/БИН:</label>
             <input type="number" class="form-control" id="iinbin" placeholder="123456789012"
               value="{{ .regForm.IINBIN }}">
-            <div class="invalid-feedback">
+            <div class="invalid-feedback"  id="iinbin-error">
               Не заполнено обязательное поле
             </div>
           </div>
@@ -42,7 +42,7 @@
             <label class="form-label">Номер счета/IBAN:</label>
             <input type="text" class="form-control" id="iban" placeholder="KZ123456789012"
               value="{{ .regForm.AccountNumber }}" id="iban-error">
-            <div class="invalid-feedback">
+            <div class="invalid-feedback"   id="iban-error">
               Не заполнено обязательное поле
             </div>
           </div>

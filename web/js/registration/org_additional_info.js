@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
-    $("#form-submit-button").click(function () {
-        console.log(" click submit button ");
+    $("#form").submit(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         var validator = new OrgAdditionalInfoValidator();
         validator.validate();
         if (!validator.hasErrors()) {
@@ -54,13 +55,13 @@ class OrgAdditionalInfoValidator extends BaseValidator {
         } else {
             $("#iban-error").css("display", "none");
         }
-        if (formOfLawVal == null || formOfLawVal == "") {
+        if (bic == null || bic == "") {
             this.errors.push(new ErrorField("bic", "Поле не может быть пустым"));
             $("#bic-error").css("display", "block");
         } else {
             $("#bic-error").css("display", "none");
         }
-        if (orgAddressVal == null || orgAddressVal == "") {
+        if (kbe == null || kbe == "") {
             this.errors.push(new ErrorField("kbe", "Поле не может быть пустым"));
             $("#kbe-error").css("display", "block");
         } else {
