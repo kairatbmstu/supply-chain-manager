@@ -6,6 +6,7 @@ import (
 	"example.com/m/v2/controller"
 	"example.com/m/v2/dto"
 	"example.com/m/v2/forms"
+	"example.com/m/v2/middleware"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
@@ -26,6 +27,7 @@ func main() {
 	gob.Register(forms.LoginForm{})
 	gob.Register(forms.RegistrationForm{})
 
+	router.Use(middleware.CheckAuthentification())
 	router.Use(sessions.Sessions("mysession", store))
 	router.Static("web/css", "web/css")
 	router.Static("web/js", "web/js")

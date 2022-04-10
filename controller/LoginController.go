@@ -31,7 +31,7 @@ func (l LoginController) PostLogin(c *gin.Context) {
 
 	if c.ShouldBind(&loginForm) == nil {
 		log.Println(loginForm)
-		if strings.EqualFold(loginForm.Username, "admin") && strings.EqualFold(loginForm.Password, "123456") {
+		if strings.EqualFold(loginForm.Username, "admin@mail.ru") && strings.EqualFold(loginForm.Password, "123456") {
 
 			userDto := dto.UserDTO{
 				Email:    loginForm.Username,
@@ -48,6 +48,8 @@ func (l LoginController) PostLogin(c *gin.Context) {
 
 			c.Redirect(http.StatusFound, "/")
 		} else {
+			session.AddFlash("Username or password is invalid")
+			session.Save()
 			c.HTML(http.StatusOK, "login.html", gin.H{})
 		}
 
