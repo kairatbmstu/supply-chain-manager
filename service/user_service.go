@@ -23,25 +23,46 @@ func (c UserService) GetOne(id int) (*dto.UserDTO, error) {
 
 func (c UserService) Create(userDto *dto.UserDTO) (*dto.UserDTO, error) {
 	user := c.userMapper.ToEntity(userDto)
-	return repository.UserRepositoryInstance.Create(user)
+	user, err := repository.UserRepositoryInstance.Create(user)
+	if err != nil {
+		return nil, err
+	}
+	result := c.userMapper.ToDto(user)
+	return result, nil
 }
 
 func (c UserService) GrantRoleToUser(user *dto.UserDTO, role dto.RoleDTO) (*dto.UserDTO, error) {
-	return repository.UserRepositoryInstance.GrantRoleToUser(user, role)
+	return nil, nil
 }
 
-func (c UserService) Update(user *dto.UserDTO) (*dto.UserDTO, error) {
-	return repository.UserRepositoryInstance.Update(user)
+func (c UserService) Update(userdto *dto.UserDTO) (*dto.UserDTO, error) {
+	user := c.userMapper.ToEntity(userdto)
+	user, err := repository.UserRepositoryInstance.Update(user)
+	if err != nil {
+		return nil, err
+	}
+	result := c.userMapper.ToDto(user)
+	return result, nil
 }
 
 func (c UserService) GetAll() ([]*dto.UserDTO, error) {
-	return repository.UserRepositoryInstance.GetAll()
+	return nil, nil
 }
 
 func (c UserService) FindByUsername(username string) (*dto.UserDTO, error) {
-	return repository.UserRepositoryInstance.FindByUsername(username)
+	user, err := repository.UserRepositoryInstance.FindByUsername(username)
+	if err != nil {
+		return nil, err
+	}
+	result := c.userMapper.ToDto(user)
+	return result, nil
 }
 
 func (c UserService) FindByEmail(email string) (*dto.UserDTO, error) {
-	return repository.UserRepositoryInstance.FindByEmail(email)
+	user, err := repository.UserRepositoryInstance.FindByEmail(email)
+	if err != nil {
+		return nil, err
+	}
+	result := c.userMapper.ToDto(user)
+	return result, nil
 }
