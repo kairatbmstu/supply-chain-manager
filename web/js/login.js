@@ -4,14 +4,12 @@ $(document).ready(function () {
         window.location = "/register/resident_type";
     });
 
-    $("#login-form > button[type='button']").click(function () {
-
+    $("#form-submit-button").click(function () {
+        console.log(" click submit button ")
         if (!hasErrors()) {
             console.log("form submit");
             $("#login-form").submit();
         }
-
-
     });
 
 

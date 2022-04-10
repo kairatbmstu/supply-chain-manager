@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"example.com/m/v2/dto"
+	"example.com/m/v2/flash"
 	"example.com/m/v2/forms"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -20,9 +21,9 @@ func (l LoginController) GetLoginPage(c *gin.Context) {
 	session := sessions.Default(c)
 	log.Println(" GET /login ")
 	log.Println("sessionId: ", session.ID())
-	log.Println("session.Flashes(): ", session.Flashes())
+	msg, _ := c.Cookie("ErrorFlash")
 	c.HTML(http.StatusOK, "login.html", gin.H{
-		"session": session,
+		"ErrorFlash": msg,
 	})
 }
 
@@ -42,6 +43,8 @@ func (l LoginController) PostLogin(c *gin.Context) {
 			}
 
 			session.Set("user", userDto)
+			log.Println("session : ", session)
+			log.Println("session.Flashes : ", session.Flashes())
 			err := session.Save()
 			if err != nil {
 				log.Println("error : ", err)
@@ -50,11 +53,8 @@ func (l LoginController) PostLogin(c *gin.Context) {
 
 			c.Redirect(http.StatusFound, "/")
 		} else {
-			session.AddFlash("Не верный логин или пароль")
+			flash.SetErrorFlash(c, "Не верный логин или пароль")
 			c.Redirect(303, "/login")
-			//c.HTML(http.StatusOK, "login.html", gin.H{
-			//	"session": session,
-			//})
 		}
 
 	}
