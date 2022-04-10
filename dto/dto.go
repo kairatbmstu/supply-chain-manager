@@ -198,17 +198,3 @@ type ProductFieldDTO struct {
 	SubCategory SubCategoryDTO
 }
 
-type ErrorDTO struct {
-	ErrorCode    string
-	ErrorMessage string
-	FieldValues  []FieldValueDTO
-}
-
-func (e ErrorDTO) Error() string {
-	return e.ErrorMessage
-}
-
-type FieldValueDTO struct {
-	FieldName    string
-	ErrorMessage string
-}

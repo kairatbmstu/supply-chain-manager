@@ -5,25 +5,6 @@ import (
 	"example.com/m/v2/dto"
 )
 
-type UserMapper struct {
-}
-
-func (u UserMapper) toDto(user *domain.User) *dto.UserDTO {
-	var result = new(dto.UserDTO)
-	result.Email = user.Email
-	result.Username = user.Username
-	result.Password = user.Password
-	return result
-}
-
-func (u UserMapper) toEntity(user *dto.UserDTO) *domain.User {
-	var result = new(domain.User)
-	result.Email = user.Email
-	result.Username = user.Username
-	result.Password = user.Password
-	return result
-}
-
 type RoleMapper struct {
 }
 
