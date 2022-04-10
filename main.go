@@ -27,8 +27,8 @@ func main() {
 	gob.Register(forms.LoginForm{})
 	gob.Register(forms.RegistrationForm{})
 
-	router.Use(middleware.CheckAuthentification())
 	router.Use(sessions.Sessions("mysession", store))
+	router.Use(middleware.CheckAuthentification)
 	router.Static("web/css", "web/css")
 	router.Static("web/js", "web/js")
 	router.LoadHTMLGlob("web/templates/**/*")
@@ -36,6 +36,7 @@ func main() {
 	router.GET("/", controller.IndexControllerInstance.GetIndexPage)
 	router.GET("/login", controller.LoginControllerInstance.GetLoginPage)
 	router.POST("/login", controller.LoginControllerInstance.PostLogin)
+	router.GET("/logout", controller.LoginControllerInstance.Logout)
 	router.GET("/register/resident_type", controller.RegistrationControllerInstance.GetResidentType)
 	router.POST("/register/resident_type", controller.RegistrationControllerInstance.PostResidentType)
 	router.GET("/register/org_main_info", controller.RegistrationControllerInstance.GetMainInfo)

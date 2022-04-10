@@ -55,3 +55,10 @@ func (l LoginController) PostLogin(c *gin.Context) {
 
 	}
 }
+
+func (l LoginController) Logout(c *gin.Context) {
+	session := sessions.Default(c)
+	session.Clear()
+	session.Save()
+	c.Redirect(303, "/login")
+}
