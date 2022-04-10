@@ -4,39 +4,44 @@
   <div style="max-width: 530px;  margin: 100px auto auto auto; ">
     <h1>Регистрация в «Магнум»</h1>
   </div>
-  <form method="POST" action="/register/contact_person_info" class="registration-form">
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-control" id="phoneNumber" value="{{ .regForm.OrgPhone }}" required>
-        <div class="invalid-feedback">
-          Не заполнено обязательное поле
+  <div class="card" style="max-width: 530px;  margin: 100px auto auto auto;">
+    <div class="card-body">
+      <form method="POST" action="/register/contact_person_info">
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" id="phoneNumber" value="{{ .regForm.OrgPhone }}" >
+            <div class="invalid-feedback">
+              Не заполнено обязательное поле
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label class="form-label">Контактное лицо</label>
-        <input type="text" class="form-control" id="orgSite" placeholder="ФИО" value="{{ .regForm.OrgSite }}" required>
-        <div class="invalid-feedback">
-          Не заполнено обязательное поле
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Контактное лицо</label>
+            <input type="text" class="form-control" id="orgSite" placeholder="ФИО" value="{{ .regForm.OrgSite }}"
+              >
+            <div class="invalid-feedback">
+              Не заполнено обязательное поле
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <label class="form-label">Должность</label>
-        <input type="text" class="form-control" id="iinbin" value="{{ .regForm.IINBIN }}" required>
-        <div class="invalid-feedback">
-          Не заполнено обязательное поле
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <label class="form-label">Должность</label>
+            <input type="text" class="form-control" id="iinbin" value="{{ .regForm.IINBIN }}" >
+            <div class="invalid-feedback">
+              Не заполнено обязательное поле
+            </div>
+          </div>
         </div>
-      </div>
+        <div class="row mb-3">
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Следующий шаг</button>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <button type="submit" class="btn btn-primary">Следующий шаг</button>
-      </div>
-    </div>
-  </form>
+  </div>
 </div>
 {{ template "footer" }}
