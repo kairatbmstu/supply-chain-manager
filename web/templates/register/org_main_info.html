@@ -2,61 +2,68 @@
 <div id="container">
 
   {{range .Flash}}
-  <div class="alert alert-danger">{{.}}</div><p>
-{{end}}
+  <div class="alert alert-danger">{{.}}</div>
+  <p>
+    {{end}}
 
   <div style="max-width: 530px;  margin: 100px auto auto auto; ">
     <h1>Регистрация в «Магнум»</h1>
   </div>
+  <div class="card" style="max-width: 530px;  margin: 100px auto auto auto;">
+    <div class="card-body">
+      <form id="form" method="POST" action="/register/org_main_info"
+        >
+        <div class="mb-3">
+          <label for="org_name" class="form-label">Наименование организации</label>
+          <input type="text" class="form-control" id="org_name" name="org_name" placeholder="Наименование организации"
+            value="{{ .regForm.OrgName }}" />
+          <div class="invalid-feedback" id="org_name-error">
+            Поле обязательно к заполнению
+          </div>
+        </div>
 
-  <form method="POST" action="/register/org_main_info" style="max-width: 530px;  margin: 100px auto auto auto;">
-    <div class="mb-3">
-      <label for="org_name" class="form-label">Наименование организации</label>
-      <input type="text" class="form-control" id="org_name" name="org_name" placeholder="Наименование организации"
-        value="{{ .regForm.OrgName }}" />
+        <div class="mb-3">
+          <label for="org_address" class="form-label">Адрес регистрации</label>
+          <input type="text" class="form-control" id="org_address" name="org_address" placeholder="Адрес регистрации"
+            value="{{ .regForm.OrgAddress }}" />
+          <div class="invalid-feedback" id="org_address-error">
+            Поле обязательно к заполнению
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Форма юридического лица:</label>
+          <select aria-placeholder="Форма юридического лица" name="form_of_law" class="form-control" id="form_of_law"
+            required aria-required="true">
+            {{ if eq .regForm.FormOfLawID 1 }}
+            <option value="1" selected>ИП</option>
+            {{ else }}
+            <option value="1">ИП</option>
+            {{ end }}
+            {{ if eq .regForm.FormOfLawID 2 }}
+            <option value="2" selected>ТОО</option>
+            {{ else }}
+            <option value="2">ТОО</option>
+            {{ end }}
+            {{ if eq .regForm.FormOfLawID 3 }}
+            <option value="3" selected>АО</option>
+            {{ else }}
+            <option value="3">АО</option>
+            {{ end }}
+          </select>
+          <div class="invalid-feedback" id="form_of_law-error">
+            Поле телефон обязательно для заполнения
+          </div>
+        </div>
+        <div class="mb-3">
+          <button id="form-submit-button" type="button" class="btn btn-primary">Следующий шаг</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-       
-
-      {{if .ErrorOrgName}}
-      <div class="invalid-feedback" id="org_name_error" style="display: block;">Пожалуйста Введите Наименование
-        организации</div>
-      {{end}}
-    </div>
-
-    <div class="mb-3">
-      <label for="org_address" class="form-label">Адрес регистрации</label>
-      <input type="text" class="form-control" id="org_address" name="org_address" placeholder="Адрес регистрации"
-        value="{{ .regForm.OrgAddress }}" />
-      <div class="invalid-feedback">Пожалуйста Введите Наименование организации</div>
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Форма юридического лица:</label>
-      <select aria-placeholder="Форма юридического лица" name="form_of_law" class="form-control" id="form_of_law"
-        required aria-required="true">
-        {{ if eq .regForm.FormOfLawID 1 }}
-        <option value="1" selected>ИП</option>
-        {{ else }}
-        <option value="1">ИП</option>
-        {{ end }}
-        {{ if eq .regForm.FormOfLawID 2 }}
-        <option value="2" selected>ТОО</option>
-        {{ else }}
-        <option value="2">ТОО</option>
-        {{ end }}
-        {{ if eq .regForm.FormOfLawID 3 }}
-        <option value="3" selected>АО</option>
-        {{ else }}
-        <option value="3">АО</option>
-        {{ end }}
-      </select>
-      <div class="invalid-feedback">
-        Поле телефон обязательно для заполнения
-      </div>
-    </div>
-    <div class="mb-3">
-      <button type="submit" class="btn btn-primary">Следующий шаг</button>
-    </div>
-  </form>
 </div>
+
+<script src="/web/js/registration/org_main_info.js" crossorigin="anonymous"></script>
+
 
 {{ template "footer" }}

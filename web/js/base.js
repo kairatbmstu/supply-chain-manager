@@ -1,8 +1,7 @@
 class Validator {
 
-    constructor(form) {
+    constructor() {
         this.errors = []
-        this.form = form
     }
 
     validate() {

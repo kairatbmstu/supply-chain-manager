@@ -72,7 +72,7 @@ func (r RegistrationController) PostOrgMainInfo(c *gin.Context) {
 	if regForm.OrgName == "" {
 		session.AddFlash("Пожалуйста заполните поле Наименование организации")
 		session.Save()
-		c.Redirect(303, "/register/org_main_info")
+		c.HTML(200, "error400.html", gin.H{})
 		return
 	}
 
