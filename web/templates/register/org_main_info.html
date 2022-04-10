@@ -1,18 +1,18 @@
 {{ template "header" }}
 <div id="container">
 
-  {{range .Flash}}
-  <div class="alert alert-danger">{{.}}</div>
-  <p>
-    {{end}}
 
   <div style="max-width: 530px;  margin: 100px auto auto auto; ">
     <h1>Регистрация в «Магнум»</h1>
   </div>
+
+  {{ if .ErrorFlash }}
+  <div class="alert alert-danger">{{.ErrorFlash}}</div>
+  {{ end }}
+
   <div class="card" style="max-width: 530px;  margin: 100px auto auto auto;">
     <div class="card-body">
-      <form id="form" method="POST" action="/register/org_main_info"
-        >
+      <form id="form" method="POST" action="/register/org_main_info">
         <div class="mb-3">
           <label for="org_name" class="form-label">Наименование организации</label>
           <input type="text" class="form-control" id="org_name" name="org_name" placeholder="Наименование организации"

@@ -4,22 +4,26 @@
   <div style="max-width: 530px;  margin: 100px auto auto auto; ">
     <h1>Регистрация в «Магнум»</h1>
   </div>
+
+  {{ if .ErrorFlash }}
+  <div class="alert alert-danger">{{.ErrorFlash}}</div>
+  {{ end }}
+
   <div class="card" style="max-width: 530px;  margin: 100px auto auto auto;">
     <div class="card-body">
-      <form method="POST" action="/register/org_additional_info" >
+      <form method="POST" action="/register/org_additional_info">
         <div class="row mb-3">
           <div class="col-md-6">
             <label class="form-label">Телефон организации:</label>
             <input type="text" class="form-control" id="phoneNumber" placeholder="+77771234567"
-              value="{{ .regForm.OrgPhone }}" >
+              value="{{ .regForm.OrgPhone }}">
             <div class="invalid-feedback">
               Не заполнено обязательное поле
             </div>
           </div>
           <div class="col-md-6">
             <label class="form-label">Сайт организации:</label>
-            <input type="text" class="form-control" id="orgSite" placeholder="ivanov.ru" value="{{ .regForm.OrgSite }}"
-              >
+            <input type="text" class="form-control" id="orgSite" placeholder="ivanov.ru" value="{{ .regForm.OrgSite }}">
             <div class="invalid-feedback">
               Не заполнено обязательное поле
             </div>
@@ -29,7 +33,7 @@
           <div class="col-md-6">
             <label class="form-label">ИИН/БИН:</label>
             <input type="number" class="form-control" id="iinbin" placeholder="123456789012"
-              value="{{ .regForm.IINBIN }}" >
+              value="{{ .regForm.IINBIN }}">
             <div class="invalid-feedback">
               Не заполнено обязательное поле
             </div>
@@ -37,7 +41,7 @@
           <div class="col-md-6">
             <label class="form-label">Номер счета/IBAN:</label>
             <input type="text" class="form-control" id="accoutNumber" placeholder="KZ123456789012"
-              value="{{ .regForm.OrgSite }}" >
+              value="{{ .regForm.OrgSite }}">
             <div class="invalid-feedback">
               Не заполнено обязательное поле
             </div>
@@ -47,14 +51,14 @@
           <div class="col-md-6">
             <label class="form-label">БИК:</label>
             <input type="number" class="form-control" id="bic" name="bic" placeholder="1234567"
-              value="{{ .regForm.BIC }}" >
+              value="{{ .regForm.BIC }}">
             <div class="invalid-feedback">
               Не заполнено обязательное поле
             </div>
           </div>
           <div class="col-md-6">
             <label class="form-label">КБЕ:</label>
-            <input type="number" class="form-control" id="kbe" placeholder="123" value="{{ .regForm.KBE }}" >
+            <input type="number" class="form-control" id="kbe" placeholder="123" value="{{ .regForm.KBE }}">
             <div class="invalid-feedback">
               Не заполнено обязательное поле
             </div>
@@ -90,5 +94,9 @@
     </div>
   </div>
 </div>
+
+<script src="/web/js/registration/org_additional_info.js" crossorigin="anonymous"></script>
+
+
 
 {{ template "footer" }}

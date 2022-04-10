@@ -3,15 +3,15 @@ $(document).ready(function () {
     $("#form-submit-button").click(function () {
         console.log(" click submit button ")
         var validator = new OrgMainInfoValidator();
-        validator.validate()
+        validator.validate();
         if (!validator.hasErrors()) {
-            $("#form").submit()
+            $("#form").submit();
         }
     });
 });
 
 
-class OrgMainInfoValidator extends Validator {
+class OrgMainInfoValidator extends BaseValidator {
     constructor() {
         super();
         this.errors = [];
@@ -47,10 +47,11 @@ class OrgMainInfoValidator extends Validator {
     }
 
     hasErrors() {
+        console.log(this.errors);
         if (this.errors.length > 0) {
-            return true
+            return true;
         }
 
-        return false
+        return false;
     }
 }

@@ -1,5 +1,5 @@
-class Validator {
-
+class BaseValidator {
+    errors;
     constructor() {
         this.errors = []
     }
