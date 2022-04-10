@@ -20,7 +20,10 @@ func (l LoginController) GetLoginPage(c *gin.Context) {
 	session := sessions.Default(c)
 	log.Println(" GET /login ")
 	log.Println("sessionId: ", session.ID())
-	c.HTML(http.StatusOK, "login.html", gin.H{})
+	log.Println("session.Flashes(): ", session.Flashes())
+	c.HTML(http.StatusOK, "login.html", gin.H{
+		"session": session,
+	})
 }
 
 func (l LoginController) PostLogin(c *gin.Context) {
@@ -32,7 +35,6 @@ func (l LoginController) PostLogin(c *gin.Context) {
 	if c.ShouldBind(&loginForm) == nil {
 		log.Println(loginForm)
 		if strings.EqualFold(loginForm.Username, "admin@mail.ru") && strings.EqualFold(loginForm.Password, "123456") {
-
 			userDto := dto.UserDTO{
 				Email:    loginForm.Username,
 				Username: loginForm.Username,
@@ -48,9 +50,11 @@ func (l LoginController) PostLogin(c *gin.Context) {
 
 			c.Redirect(http.StatusFound, "/")
 		} else {
-			session.AddFlash("Username or password is invalid")
-			session.Save()
-			c.HTML(http.StatusOK, "login.html", gin.H{})
+			session.AddFlash("Не верный логин или пароль")
+			c.Redirect(303, "/login")
+			//c.HTML(http.StatusOK, "login.html", gin.H{
+			//	"session": session,
+			//})
 		}
 
 	}

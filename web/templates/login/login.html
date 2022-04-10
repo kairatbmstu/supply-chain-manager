@@ -2,6 +2,9 @@
  
     <div id="container">
         <form id="login-form" method="POST" action="/login" style="max-width: 330px;  margin: 200px auto auto auto;">
+            {{ range  .session.Flashes }}
+            <div class="mb-3 alert alert-danger">{{ . }}</div>
+            {{ end }}
             <div class="mb-3">
               <label for="username" class="form-label">Email:</label>
               <input type="text" class="form-control" id="username" name="username" value=""/>
