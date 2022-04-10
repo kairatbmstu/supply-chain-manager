@@ -9,7 +9,12 @@ class BaseValidator {
     }
 
     hasErrors() {
-        return false
+        console.log(this.errors);
+        if (this.errors.length > 0) {
+            return true;
+        }
+
+        return false;
     }
 }
 

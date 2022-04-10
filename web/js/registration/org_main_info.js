@@ -46,12 +46,5 @@ class OrgMainInfoValidator extends BaseValidator {
         }
     }
 
-    hasErrors() {
-        console.log(this.errors);
-        if (this.errors.length > 0) {
-            return true;
-        }
-
-        return false;
-    }
+   
 }

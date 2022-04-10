@@ -1,51 +1,71 @@
 $(document).ready(function () {
 
     $("#form-submit-button").click(function () {
-        console.log(" click submit button ")
+        console.log(" click submit button ");
+        var validator = new OrgAdditionalInfoValidator();
+        validator.validate();
+        if (!validator.hasErrors()) {
+            $("#form").submit();
+        }
     });
 });
 
 class OrgAdditionalInfoValidator extends BaseValidator {
-    constructor(){
+    constructor() {
         super()
     }
 
-    validate(){
+    validate() {
         var phoneNumber = $("#phoneNumber").val();
         var orgSite = $("#orgSite").val();
         var iinbin = $("#iinbin").val();
-        var accoutNumber = $("#accoutNumber").val();
+        var iban = $("#iban").val();
         var bic = $("#bic").val();
         var kbe = $("#kbe").val();
 
         console.log('phoneNumber : ', phoneNumber);
         console.log('orgSite : ', orgSite);
         console.log('iinbin : ', iinbin);
-        console.log('accoutNumber : ', accoutNumber);
+        console.log('iban : ', iban);
         console.log('bic : ', bic);
         console.log('kbe : ', kbe);
 
-        if (orgNameVal == null || orgNameVal == "") {
+        if (phoneNumber == null || phoneNumber == "") {
             this.errors.push(new ErrorField("org_name", "Поле не может быть пустым"));
-            $("#org_name-error").css("display","block");
+            $("#phoneNumber-error").css("display", "block");
         } else {
-            $("#org_name-error").css("display","none");     
+            $("#phoneNumber-error").css("display", "none");
+        }
+        if (orgSite == null || orgSite == "") {
+            this.errors.push(new ErrorField("form_of_law", "Поле не может быть пустым"));
+            $("#orgSite-error").css("display", "block");
+        } else {
+            $("#orgSite-error").css("display", "none");
+        }
+        if (iinbin == null || iinbin == "") {
+            this.errors.push(new ErrorField("org_address", "Поле не может быть пустым"));
+            $("#iinbin-error").css("display", "block");
+        } else {
+            $("#iinbin-error").css("display", "none");
+        }
+        if (iban == null || iban == "") {
+            this.errors.push(new ErrorField("org_name", "Поле не может быть пустым"));
+            $("#iban-error").css("display", "block");
+        } else {
+            $("#iban-error").css("display", "none");
         }
         if (formOfLawVal == null || formOfLawVal == "") {
-            this.errors.push(new ErrorField("form_of_law", "Поле не может быть пустым"));
-            $("#form_of_law-error").css("display","block");
+            this.errors.push(new ErrorField("bic", "Поле не может быть пустым"));
+            $("#bic-error").css("display", "block");
         } else {
-            $("#form_of_law-error").css("display","none");
+            $("#bic-error").css("display", "none");
         }
         if (orgAddressVal == null || orgAddressVal == "") {
-            this.errors.push(new ErrorField("org_address", "Поле не может быть пустым"));
-            $("#org_address-error").css("display","block");
+            this.errors.push(new ErrorField("kbe", "Поле не может быть пустым"));
+            $("#kbe-error").css("display", "block");
         } else {
-            $("#org_address-error").css("display","none");
+            $("#kbe-error").css("display", "none");
         }
     }
 
-    hasErrors(){
-
-    }
 }
