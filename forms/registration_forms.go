@@ -45,11 +45,11 @@ type OrgAdditionalInfo struct {
 
 type ContactPersonForm struct {
 	Email                 string `form:"email"`
-	ContactPersonFullname string `form:"contact_fullname"`
-	ContactPersonPosition string `form:"contact_position"`
+	ContactPersonFullname string `form:"contactFullname"`
+	ContactPersonPosition string `form:"position"`
 }
 
 type EnterPasswordForm struct {
 	Password             string `form:"password"`
-	ConfirmationPassword string `form:"confirmation_password"`
+	ConfirmationPassword string `form:"confirm_password"`
 }

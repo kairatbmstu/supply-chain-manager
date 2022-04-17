@@ -3,11 +3,12 @@ $(document).ready(function () {
     $("#form-submit-button").click(function () {
         console.log(" click submit button ")
         var validator = new ContactPersonValidator();
-        
+        console.log("errors : ", validator.hasErrors())
         validator.validate();
-
-        if (!validator.hasErrors()){
-            $("#form").submit();
+        console.log("errors : ", validator.hasErrors())
+        if (!validator.hasErrors()) {
+            console.log("go submit");
+            $("form").submit();
         }
 
     });
@@ -27,20 +28,22 @@ class ContactPersonValidator extends BaseValidator {
         console.log('email : ', email);
         console.log('contactFullname : ', contactFullname);
         console.log('position : ', position);
-        
+
 
         if (email == null || email == "") {
             this.errors.push("Поле email не может быть пустым");
             $("#error-email-required").css("display", "block");
 
-            if (this.isEmail(email)) {
+        } else {
+
+            if (!this.isEmail(email)) {
+                console.log("email true");
                 this.errors.push("Заполните email пожалуйста");
                 $("#error-not-email").css("display", "block");
             } else {
+                console.log("email false");
                 $("#error-not-email").css("display", "none");
             }
-
-        } else {
             $("#error-email-required").css("display", "none");
         }
 
@@ -57,6 +60,6 @@ class ContactPersonValidator extends BaseValidator {
         } else {
             $("#error-position-required").css("display", "none");
         }
-      
+
     }
 }

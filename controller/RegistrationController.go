@@ -180,31 +180,36 @@ func (r RegistrationController) PostContactPerson(c *gin.Context) {
 
 	var regForm = getRegistrationForm(c)
 	var contactPerson forms.ContactPersonForm
-	if c.ShouldBind(&regForm) == nil {
-		validator := ContactPersonValidator{}
-		validator.validate(&contactPerson)
-		if validator.hasErrors() {
-			c.HTML(http.StatusBadRequest, "error400.html", gin.H{
-				"errors": validator.Errors,
-			})
-			return
-		}
-
-		regForm.ContactPersonFullname = contactPerson.ContactPersonFullname
-		regForm.ContactPersonPosition = contactPerson.ContactPersonPosition
-		regForm.Email = contactPerson.Email
-
-		session := sessions.Default(c)
-		session.Set("registration", regForm)
-		err := session.Save()
-		if err != nil {
-			log.Println("error : ", err)
-			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
-			return
-		}
+	err := c.ShouldBind(&contactPerson)
+	if err != nil {
+		log.Println("error : ", err)
+		c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+		return
 	}
 
-	c.Redirect(http.StatusFound, "/register/complete_registration")
+	validator := ContactPersonValidator{}
+	validator.validate(&contactPerson)
+	if validator.hasErrors() {
+		c.HTML(http.StatusBadRequest, "error400.html", gin.H{
+			"errors": validator.Errors,
+		})
+		return
+	}
+
+	regForm.ContactPersonFullname = contactPerson.ContactPersonFullname
+	regForm.ContactPersonPosition = contactPerson.ContactPersonPosition
+	regForm.Email = contactPerson.Email
+
+	session := sessions.Default(c)
+	session.Set("registration", regForm)
+	err = session.Save()
+	if err != nil {
+		log.Println("error : ", err)
+		c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+		return
+	}
+
+	c.Redirect(http.StatusFound, "/register/enter_password")
 }
 
 func (r RegistrationController) PostCompleteRegistration(c *gin.Context) {

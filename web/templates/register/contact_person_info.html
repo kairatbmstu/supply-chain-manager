@@ -10,7 +10,7 @@
         <div class="row mb-3">
           <div class="col-md-12">
             <label class="form-label">Email</label>
-            <input type="text" class="form-control" id="email" value="{{ .regForm.Email }}" >
+            <input type="text" name="email" class="form-control" id="email" value="{{ .regForm.Email }}" >
             <div class="invalid-feedback" id="error-email-required">
               Не заполнено обязательное поле
             </div>
@@ -22,7 +22,7 @@
         <div class="row mb-3">
           <div class="col-md-12">
             <label class="form-label">Контактное лицо</label>
-            <input type="text" class="form-control" id="contactFullname" placeholder="ФИО" value="{{ .regForm.ContactPersonFullname }}"
+            <input type="text" name="contactFullname" class="form-control" id="contactFullname" placeholder="ФИО" value="{{ .regForm.ContactPersonFullname }}"
               >
             <div class="invalid-feedback" id="error-contactFullname-required">
               Не заполнено обязательное поле
@@ -32,8 +32,8 @@
         <div class="row mb-3">
           <div class="col-md-12">
             <label class="form-label">Должность</label>
-            <input type="text" class="form-control" id="position" placeholder="Менеджер" value="{{ .regForm.ContactPersonPosition }}" >
-            <div class="invalid-feedback" id="errors-position-required">
+            <input type="text" class="form-control" name="position" id="position" placeholder="Менеджер" value="{{ .regForm.ContactPersonPosition }}" >
+            <div class="invalid-feedback" id="error-position-required">
               Не заполнено обязательное поле
             </div>
           </div>

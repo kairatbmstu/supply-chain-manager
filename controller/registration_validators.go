@@ -200,7 +200,7 @@ func (a *EnterPasswordValidator) validate(form *forms.EnterPasswordForm) {
 		a.Errors = append(a.Errors, "Password and ConfirmationPassword should be equal")
 	}
 
-	if len(form.Password) >= 8 {
+	if len(form.Password) < 8 {
 		a.Errors = append(a.Errors, "Password must contain more than 8 symbols")
 	}
 
