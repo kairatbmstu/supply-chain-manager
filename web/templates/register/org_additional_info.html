@@ -15,7 +15,7 @@
         <div class="row mb-3">
           <div class="col-md-6">
             <label class="form-label">Телефон организации:</label>
-            <input type="text" class="form-control" id="phoneNumber" placeholder="+77771234567"
+            <input type="text" name="org_phone" class="form-control" id="phoneNumber" placeholder="+77771234567"
               value="{{ .regForm.OrgPhone }}">
             <div class="invalid-feedback" id="phoneNumber-error">
               Не заполнено обязательное поле
@@ -23,7 +23,8 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Сайт организации:</label>
-            <input type="text" class="form-control" id="orgSite" placeholder="ivanov.ru" value="{{ .regForm.OrgSite }}">
+            <input type="text"  name="org_site" class="form-control" id="orgSite" 
+            placeholder="ivanov.ru" value="{{ .regForm.OrgSite }}">
             <div class="invalid-feedback"  id="orgSite-error">
               Не заполнено обязательное поле
             </div>
@@ -32,7 +33,7 @@
         <div class="row mb-3">
           <div class="col-md-6">
             <label class="form-label">ИИН/БИН:</label>
-            <input type="number" class="form-control" id="iinbin" placeholder="123456789012"
+            <input type="number" name="iin_bin" class="form-control" id="iinbin" placeholder="123456789012"
               value="{{ .regForm.IINBIN }}">
             <div class="invalid-feedback"  id="iinbin-error">
               Не заполнено обязательное поле
@@ -40,7 +41,7 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">Номер счета/IBAN:</label>
-            <input type="text" class="form-control" id="iban" placeholder="KZ123456789012"
+            <input type="text" name="account_number" class="form-control" id="iban" placeholder="KZ123456789012"
               value="{{ .regForm.AccountNumber }}" id="iban-error">
             <div class="invalid-feedback"   id="iban-error">
               Не заполнено обязательное поле
@@ -58,7 +59,7 @@
           </div>
           <div class="col-md-6">
             <label class="form-label">КБЕ:</label>
-            <input type="number" class="form-control" id="kbe" placeholder="123" value="{{ .regForm.KBE }}">
+            <input type="number" name="kbe" class="form-control" id="kbe" placeholder="123" value="{{ .regForm.KBE }}">
             <div class="invalid-feedback"  id="kbe-error">
               Не заполнено обязательное поле
             </div>
@@ -70,7 +71,11 @@
             <label class="form-label" for="stm">
               STM
             </label>
-            <input class="form-check-input" name="stm" type="checkbox" value="checked" id="stm">
+            {{ if eq .regForm.STM "on"}}
+            <input class="form-check-input" name="stm" type="checkbox" id="stm" checked>
+            {{ else }}
+            <input class="form-check-input" name="stm" type="checkbox" id="stm">
+            {{ end }}
           </div>
         </div>
 
@@ -79,13 +84,17 @@
             <label class="form-label" for="vat">
               НДС
             </label>
-            <input class="form-check-input" name="vat" type="checkbox" value="checked" id="vat">
+            {{ if eq .regForm.VAT "on"}}
+            <input class="form-check-input" name="vat" type="checkbox"  id="vat" checked>
+            {{ else }}
+            <input class="form-check-input" name="vat" type="checkbox"  id="vat" >
+            {{ end }}
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-md-6">
-            <button type="submit" class="btn btn-primary">Следующий шаг</button>
+            <button id="form-submit-button" type="submit" class="btn btn-primary">Следующий шаг</button>
           </div>
         </div>
 

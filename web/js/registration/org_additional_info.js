@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $("#form").submit(function(e) {
+    $("#form-submit-button").click(function(e) {
         e.preventDefault();
         e.stopPropagation();
         var validator = new OrgAdditionalInfoValidator();

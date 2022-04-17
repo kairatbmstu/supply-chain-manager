@@ -10,18 +10,21 @@
         <div class="row mb-3">
           <div class="col-md-12">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" id="phoneNumber" value="{{ .regForm.OrgPhone }}" >
-            <div class="invalid-feedback">
+            <input type="text" class="form-control" id="email" value="{{ .regForm.Email }}" >
+            <div class="invalid-feedback" id="error-email-required">
               Не заполнено обязательное поле
+            </div>
+            <div class="invalid-feedback" id="error-not-email">
+              В поле должен быть заполнен Email
             </div>
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-12">
             <label class="form-label">Контактное лицо</label>
-            <input type="text" class="form-control" id="orgSite" placeholder="ФИО" value="{{ .regForm.OrgSite }}"
+            <input type="text" class="form-control" id="contactFullname" placeholder="ФИО" value="{{ .regForm.ContactPersonFullname }}"
               >
-            <div class="invalid-feedback">
+            <div class="invalid-feedback" id="error-contactFullname-required">
               Не заполнено обязательное поле
             </div>
           </div>
@@ -29,19 +32,23 @@
         <div class="row mb-3">
           <div class="col-md-12">
             <label class="form-label">Должность</label>
-            <input type="text" class="form-control" id="iinbin" value="{{ .regForm.IINBIN }}" >
-            <div class="invalid-feedback">
+            <input type="text" class="form-control" id="position" placeholder="Менеджер" value="{{ .regForm.ContactPersonPosition }}" >
+            <div class="invalid-feedback" id="errors-position-required">
               Не заполнено обязательное поле
             </div>
           </div>
         </div>
         <div class="row mb-3">
           <div class="col-md-12">
-            <button type="submit" class="btn btn-primary">Следующий шаг</button>
+            <button type="button" id="form-submit-button" class="btn btn-primary">Следующий шаг</button>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<script src="/web/js/registration/contact_person_info.js" crossorigin="anonymous"></script>
+
+
 {{ template "footer" }}

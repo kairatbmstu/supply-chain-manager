@@ -3,5 +3,18 @@
    
     <div id="container">
         <h1>Bad Request 400</h1>
+
+          <p>Errors:</p>
+
+         <p>
+             <ul>
+                {{ range .errors }}
+                <li>
+                    {{ . }}
+                </li>
+                {{ end }}
+             </ul>
+            
+         </p> 
      </div>
 {{ template "footer" }}
