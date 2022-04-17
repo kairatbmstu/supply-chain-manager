@@ -220,7 +220,9 @@ func (r RegistrationController) PostCompleteRegistration(c *gin.Context) {
 		regFormValidator.validate(c, regForm)
 
 		if regFormValidator.hasErrors() {
-			c.Redirect(http.StatusFound, "/register/complete_registration")
+			c.HTML(http.StatusBadRequest, "error400.html", gin.H{
+				"errors": regFormValidator.Errors,
+			})
 			return
 		}
 
