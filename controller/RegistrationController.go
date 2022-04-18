@@ -100,7 +100,7 @@ func (r RegistrationController) PostResidentType(c *gin.Context) {
 		if session.Get("registration") != nil {
 			registrationForm := session.Get("registration").(forms.RegistrationForm)
 			registrationForm.ResidentType = residentTypeForm.ResidentType
-			err := session.Save()
+			err := saveSession(c, &registrationForm)
 			if err != nil {
 				log.Println("error : ", err)
 				c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})

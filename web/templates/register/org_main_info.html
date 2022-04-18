@@ -35,11 +35,12 @@
           <select aria-placeholder="Форма юридического лица" name="form_of_law" class="form-control" id="form_of_law"
             required aria-required="true">
 
-            {{ range .formoflaws }}
-              {{ if eq .regForm.FormOfLawID .ID }}
-              <option value="{{ .regForm.FormOfLawID }}" selected>ИП</option>
+            {{ $formLawIdSelected := .regForm.FormOfLawID }}
+            {{ range   .formoflaws }}
+              {{ if eq $formLawIdSelected .ID }}
+              <option value="{{ .ID }}" selected>{{ .NameRu }}</option>
               {{ else }}
-              <option value="{{ .regForm.FormOfLawID }}">ИП</option>
+              <option value="{{ .ID }}">{{ .NameRu }}</option>
               {{ end }}
             {{ end}}
 
