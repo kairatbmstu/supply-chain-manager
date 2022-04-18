@@ -34,21 +34,15 @@
           <label class="form-label">Форма юридического лица:</label>
           <select aria-placeholder="Форма юридического лица" name="form_of_law" class="form-control" id="form_of_law"
             required aria-required="true">
-            {{ if eq .regForm.FormOfLawID 1 }}
-            <option value="1" selected>ИП</option>
-            {{ else }}
-            <option value="1">ИП</option>
-            {{ end }}
-            {{ if eq .regForm.FormOfLawID 2 }}
-            <option value="2" selected>ТОО</option>
-            {{ else }}
-            <option value="2">ТОО</option>
-            {{ end }}
-            {{ if eq .regForm.FormOfLawID 3 }}
-            <option value="3" selected>АО</option>
-            {{ else }}
-            <option value="3">АО</option>
-            {{ end }}
+
+            {{ range .formoflaws }}
+              {{ if eq .regForm.FormOfLawID .ID }}
+              <option value="{{ .regForm.FormOfLawID }}" selected>ИП</option>
+              {{ else }}
+              <option value="{{ .regForm.FormOfLawID }}">ИП</option>
+              {{ end }}
+            {{ end}}
+
           </select>
           <div class="invalid-feedback" id="form_of_law-error">
             Поле телефон обязательно для заполнения

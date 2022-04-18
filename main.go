@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/gob"
+	"log"
 
 	"example.com/m/v2/controller"
+	"example.com/m/v2/database"
 	"example.com/m/v2/dto"
 	"example.com/m/v2/forms"
 	"example.com/m/v2/middleware"
@@ -13,11 +15,12 @@ import (
 )
 
 func main() {
-	// DB, err := database.ConnectDatabase()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer DB.Close()
+	var err error
+	database.DB, err = database.NewDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer database.DB.Close()
 
 	router := gin.Default()
 	store := cookie.NewStore([]byte("secret"))

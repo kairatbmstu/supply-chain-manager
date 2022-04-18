@@ -78,10 +78,12 @@ type Organization struct {
 }
 
 type FormOfLaw struct {
-	ID     int
-	NameKz string
-	NameRu string
-	NameEn string
+	ID         int
+	Code       string
+	IsResident bool
+	NameKz     string
+	NameRu     string
+	NameEn     string
 }
 
 type KBE struct {

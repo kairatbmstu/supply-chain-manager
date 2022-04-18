@@ -58,10 +58,12 @@ type OrganizationDTO struct {
 }
 
 type FormOfLawDTO struct {
-	ID     int
-	NameKz string
-	NameRu string
-	NameEn string
+	ID         int
+	Code       string
+	IsResident bool
+	NameKz     string
+	NameRu     string
+	NameEn     string
 }
 
 type KBEDTO struct {
@@ -197,4 +199,3 @@ type ProductFieldDTO struct {
 	FieldNameEn string
 	SubCategory SubCategoryDTO
 }
-

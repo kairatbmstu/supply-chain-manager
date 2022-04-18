@@ -3,7 +3,9 @@ package controller
 import (
 	"log"
 	"net/http"
+	"strings"
 
+	"example.com/m/v2/dto"
 	"example.com/m/v2/forms"
 	"example.com/m/v2/service"
 	"github.com/gin-contrib/sessions"
@@ -24,8 +26,26 @@ func (r RegistrationController) GetMainInfo(c *gin.Context) {
 	initRegistrationForm(c)
 
 	registrationForm := getRegistrationForm(c)
+
+	var formoflawdtos []dto.FormOfLawDTO
+	var err error
+	if strings.EqualFold(registrationForm.ResidentType, "resident") {
+		formoflawdtos, err = service.FormOfLawServiceInstance.FindResident()
+		if err != nil {
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
+	} else {
+		formoflawdtos, err = service.FormOfLawServiceInstance.FindNonResident()
+		if err != nil {
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
+	}
+
 	c.HTML(http.StatusOK, "org_main_info.html", gin.H{
-		"regForm": registrationForm,
+		"regForm":    registrationForm,
+		"formoflaws": formoflawdtos,
 	})
 
 }
