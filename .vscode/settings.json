@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "supply_chain_manager",
+            "database": "supply_chain_manager",
+            "username": "supply_chain_manager",
+            "password": "123456"
+        }
+    ]
+}

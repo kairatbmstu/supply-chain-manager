@@ -8,7 +8,6 @@ create table databasechangeloglock
 	lockedby varchar(255)
 );
 
-alter table databasechangeloglock owner to suppliers_portal;
 
 create table databasechangelog
 (
@@ -28,7 +27,6 @@ create table databasechangelog
 	deployment_id varchar(10)
 );
 
-alter table databasechangelog owner to suppliers_portal;
 
 create table otdel
 (
@@ -43,7 +41,6 @@ create table otdel
 	level varchar(255)
 );
 
-alter table otdel owner to suppliers_portal;
 
 create table jhi_group
 (
@@ -58,7 +55,6 @@ create table jhi_group
 	otdel_id bigint
 );
 
-alter table jhi_group owner to suppliers_portal;
 
 create table subgroup
 (
@@ -74,7 +70,6 @@ create table subgroup
 	subcategory_id bigint
 );
 
-alter table subgroup owner to suppliers_portal;
 
 create table app_role
 (
@@ -87,7 +82,6 @@ create table app_role
 	name_en varchar(255)
 );
 
-alter table app_role owner to suppliers_portal;
 
 create table category
 (
@@ -103,7 +97,6 @@ create table category
 	name_en varchar(255)
 );
 
-alter table category owner to suppliers_portal;
 
 create table rel_category__role
 (
@@ -117,7 +110,6 @@ create table rel_category__role
 		primary key (category_id, role_id)
 );
 
-alter table rel_category__role owner to suppliers_portal;
 
 create table sub_category
 (
@@ -139,7 +131,6 @@ create table sub_category
 		unique (category_id, name_ru)
 );
 
-alter table sub_category owner to suppliers_portal;
 
 create table region
 (
@@ -153,7 +144,6 @@ create table region
 	name_en varchar(255)
 );
 
-alter table region owner to suppliers_portal;
 
 create table size
 (
@@ -166,7 +156,6 @@ create table size
 	name_en varchar(255)
 );
 
-alter table size owner to suppliers_portal;
 
 create table kbe
 (
@@ -179,7 +168,6 @@ create table kbe
 	name_en varchar(255)
 );
 
-alter table kbe owner to suppliers_portal;
 
 create table form_of_law
 (
@@ -193,7 +181,6 @@ create table form_of_law
 	name_en varchar(255)
 );
 
-alter table form_of_law owner to suppliers_portal;
 
 create table organization
 (
@@ -233,7 +220,6 @@ create table organization
 	is_blocked boolean default false
 );
 
-alter table organization owner to suppliers_portal;
 
 create table app_user
 (
@@ -268,7 +254,6 @@ create table app_user
 		unique (iin, organization_id)
 );
 
-alter table app_user owner to suppliers_portal;
 
 create table rel_app_user__role
 (
@@ -282,7 +267,6 @@ create table rel_app_user__role
 		primary key (app_user_id, role_id)
 );
 
-alter table rel_app_user__role owner to suppliers_portal;
 
 create table user_session
 (
@@ -297,7 +281,6 @@ create table user_session
 			references app_user
 );
 
-alter table user_session owner to suppliers_portal;
 
 create table rel_organization__region
 (
@@ -311,7 +294,6 @@ create table rel_organization__region
 		primary key (organization_id, region_id)
 );
 
-alter table rel_organization__region owner to suppliers_portal;
 
 create table logisticts_options
 (
@@ -324,7 +306,6 @@ create table logisticts_options
 	name_en varchar(255)
 );
 
-alter table logisticts_options owner to suppliers_portal;
 
 create table measurement
 (
@@ -340,7 +321,6 @@ create table measurement
 	abr_unit_en varchar(25)
 );
 
-alter table measurement owner to suppliers_portal;
 
 create table barcode_mask
 (
@@ -353,7 +333,6 @@ create table barcode_mask
 	name_en varchar(255)
 );
 
-alter table barcode_mask owner to suppliers_portal;
 
 create table commercial_proposal_status
 (
@@ -365,7 +344,6 @@ create table commercial_proposal_status
 	name_en varchar(255)
 );
 
-alter table commercial_proposal_status owner to suppliers_portal;
 
 create table payment_type
 (
@@ -378,7 +356,6 @@ create table payment_type
 	name_en varchar(255)
 );
 
-alter table payment_type owner to suppliers_portal;
 
 create table proposal_conditions
 (
@@ -397,7 +374,6 @@ create table proposal_conditions
 			references payment_type
 );
 
-alter table proposal_conditions owner to suppliers_portal;
 
 create table rel_proposal_conditions__region
 (
@@ -411,7 +387,6 @@ create table rel_proposal_conditions__region
 		primary key (proposal_conditions_id, region_id)
 );
 
-alter table rel_proposal_conditions__region owner to suppliers_portal;
 
 create table commercial_conditions
 (
@@ -436,7 +411,6 @@ create table commercial_conditions
 	id_text varchar(255)
 );
 
-alter table commercial_conditions owner to suppliers_portal;
 
 create table rel_commercial_conditions__region
 (
@@ -450,7 +424,6 @@ create table rel_commercial_conditions__region
 		primary key (commercial_conditions_id, region_id)
 );
 
-alter table rel_commercial_conditions__region owner to suppliers_portal;
 
 create table enter_product_request
 (
@@ -468,7 +441,6 @@ create table enter_product_request
 			references organization
 );
 
-alter table enter_product_request owner to suppliers_portal;
 
 create table app_error
 (
@@ -489,7 +461,6 @@ create table app_error
 			references enter_product_request
 );
 
-alter table app_error owner to suppliers_portal;
 
 create table enter_product_request_status
 (
@@ -501,7 +472,6 @@ create table enter_product_request_status
 	name_en varchar(255)
 );
 
-alter table enter_product_request_status owner to suppliers_portal;
 
 create table enter_product_request_notif
 (
@@ -515,7 +485,6 @@ create table enter_product_request_notif
 			references enter_product_request
 );
 
-alter table enter_product_request_notif owner to suppliers_portal;
 
 create table field_group
 (
@@ -528,7 +497,6 @@ create table field_group
 	name_en varchar(255)
 );
 
-alter table field_group owner to suppliers_portal;
 
 create table product_field
 (
@@ -552,7 +520,6 @@ create table product_field
 	field_order integer
 );
 
-alter table product_field owner to suppliers_portal;
 
 create table product_field_value
 (
@@ -565,7 +532,6 @@ create table product_field_value
 	product_id bigint not null
 );
 
-alter table product_field_value owner to suppliers_portal;
 
 create table token_black_list
 (
@@ -577,7 +543,6 @@ create table token_black_list
 	dispose_time timestamp
 );
 
-alter table token_black_list owner to suppliers_portal;
 
 create table country
 (
@@ -590,7 +555,6 @@ create table country
 	name_en varchar(255)
 );
 
-alter table country owner to suppliers_portal;
 
 create table tnvd
 (
@@ -604,7 +568,6 @@ create table tnvd
 	name_en varchar(1500)
 );
 
-alter table tnvd owner to suppliers_portal;
 
 create table color
 (
@@ -617,7 +580,6 @@ create table color
 	name_en varchar(255)
 );
 
-alter table color owner to suppliers_portal;
 
 create table taste
 (
@@ -630,7 +592,6 @@ create table taste
 	name_en varchar(255)
 );
 
-alter table taste owner to suppliers_portal;
 
 create table package_type
 (
@@ -646,7 +607,6 @@ create table package_type
 	name_en varchar(255)
 );
 
-alter table package_type owner to suppliers_portal;
 
 create table fat_content
 (
@@ -659,7 +619,6 @@ create table fat_content
 	name_en varchar(255)
 );
 
-alter table fat_content owner to suppliers_portal;
 
 create table child_weight
 (
@@ -672,7 +631,6 @@ create table child_weight
 	name_en varchar(255)
 );
 
-alter table child_weight owner to suppliers_portal;
 
 create table seasonality_sign
 (
@@ -685,7 +643,6 @@ create table seasonality_sign
 	name_en varchar(255)
 );
 
-alter table seasonality_sign owner to suppliers_portal;
 
 create table packaging
 (
@@ -698,7 +655,6 @@ create table packaging
 	name_en varchar(255)
 );
 
-alter table packaging owner to suppliers_portal;
 
 create table storage_and_transportation_conditions
 (
@@ -711,7 +667,6 @@ create table storage_and_transportation_conditions
 	name_en varchar(255)
 );
 
-alter table storage_and_transportation_conditions owner to suppliers_portal;
 
 create table additional_options
 (
@@ -724,7 +679,6 @@ create table additional_options
 	name_en varchar(255)
 );
 
-alter table additional_options owner to suppliers_portal;
 
 create table volume
 (
@@ -737,7 +691,6 @@ create table volume
 	name_en varchar(255)
 );
 
-alter table volume owner to suppliers_portal;
 
 create table foliage
 (
@@ -750,7 +703,6 @@ create table foliage
 	name_en varchar(255)
 );
 
-alter table foliage owner to suppliers_portal;
 
 create table age_category
 (
@@ -763,7 +715,6 @@ create table age_category
 	name_en varchar(255)
 );
 
-alter table age_category owner to suppliers_portal;
 
 create table load
 (
@@ -776,7 +727,6 @@ create table load
 	name_en varchar(255)
 );
 
-alter table load owner to suppliers_portal;
 
 create table delivery_conditions
 (
@@ -789,7 +739,6 @@ create table delivery_conditions
 	name_en varchar(255)
 );
 
-alter table delivery_conditions owner to suppliers_portal;
 
 create table product
 (
@@ -921,7 +870,6 @@ create table product
 		unique (vendor_code, organization_id)
 );
 
-alter table product owner to suppliers_portal;
 
 create table commercial_proposal
 (
@@ -951,7 +899,6 @@ create table commercial_proposal
 	currency varchar(10)
 );
 
-alter table commercial_proposal owner to suppliers_portal;
 
 create table process
 (
@@ -970,7 +917,6 @@ create table process
 			references commercial_proposal
 );
 
-alter table process owner to suppliers_portal;
 
 create table currency
 (
@@ -982,7 +928,6 @@ create table currency
 	name_en varchar(255)
 );
 
-alter table currency owner to suppliers_portal;
 
 create table product_photo
 (
@@ -999,7 +944,6 @@ create table product_photo
 	filepath varchar(500) not null
 );
 
-alter table product_photo owner to suppliers_portal;
 
 create table photo_type
 (
@@ -1011,7 +955,6 @@ create table photo_type
 	name_en varchar(255)
 );
 
-alter table photo_type owner to suppliers_portal;
 
 create table product_instance
 (
@@ -1039,7 +982,6 @@ create table product_instance
 			references enter_product_request
 );
 
-alter table product_instance owner to suppliers_portal;
 
 create table product_in_region
 (
@@ -1054,7 +996,6 @@ create table product_in_region
 			references region
 );
 
-alter table product_in_region owner to suppliers_portal;
 
 create table product_field_stage
 (
@@ -1074,7 +1015,6 @@ create table product_field_stage
 	is_visible boolean default true
 );
 
-alter table product_field_stage owner to suppliers_portal;
 
 create table field_check_in_stage
 (
@@ -1089,7 +1029,6 @@ create table field_check_in_stage
 			references product
 );
 
-alter table field_check_in_stage owner to suppliers_portal;
 
 create table product_field_in_category
 (
@@ -1109,7 +1048,6 @@ create table product_field_in_category
 		unique (sub_category_id, product_field_id)
 );
 
-alter table product_field_in_category owner to suppliers_portal;
 
 create table commercial_proposal_status_h
 (
@@ -1128,7 +1066,6 @@ create table commercial_proposal_status_h
 	is_internal boolean default false
 );
 
-alter table commercial_proposal_status_h owner to suppliers_portal;
 
 create table reset_password_application
 (
@@ -1142,7 +1079,6 @@ create table reset_password_application
 	confirmation_status boolean default false
 );
 
-alter table reset_password_application owner to suppliers_portal;
 
 create table request_step_notification
 (
@@ -1164,7 +1100,6 @@ create table request_step_notification
 	error_description text
 );
 
-alter table request_step_notification owner to suppliers_portal;
 
 create table enter_product_request_status_h
 (
@@ -1183,7 +1118,6 @@ create table enter_product_request_status_h
 	is_internal boolean default false
 );
 
-alter table enter_product_request_status_h owner to suppliers_portal;
 
 create table certificate_type
 (
@@ -1196,7 +1130,6 @@ create table certificate_type
 	name_en varchar(255)
 );
 
-alter table certificate_type owner to suppliers_portal;
 
 create table product_certificate
 (
@@ -1219,7 +1152,6 @@ create table product_certificate
 	url varchar(500)
 );
 
-alter table product_certificate owner to suppliers_portal;
 
 create table trade_mark
 (
@@ -1232,7 +1164,6 @@ create table trade_mark
 	name_en varchar(255)
 );
 
-alter table trade_mark owner to suppliers_portal;
 
 create table manufacturer
 (
@@ -1245,7 +1176,6 @@ create table manufacturer
 	name_en varchar(255)
 );
 
-alter table manufacturer owner to suppliers_portal;
 
 create table assortiment_status
 (
@@ -1258,7 +1188,6 @@ create table assortiment_status
 	name_en varchar(255)
 );
 
-alter table assortiment_status owner to suppliers_portal;
 
 create table integration_status_h
 (
@@ -1268,7 +1197,6 @@ create table integration_status_h
 	comment_text text
 );
 
-alter table integration_status_h owner to suppliers_portal;
 
 create view commercial_proposal_info(commercial_proposal_id, product_amount, total_price_with_vat) as
 SELECT pi2.commercial_proposal_id,
@@ -1278,69 +1206,52 @@ FROM product_instance pi2
 GROUP BY pi2.commercial_proposal_id
 ORDER BY (count(pi2.id)) DESC;
 
-alter table commercial_proposal_info owner to suppliers_portal;
 
 create sequence sequence_generator;
 
-alter sequence sequence_generator owner to suppliers_portal;
 
 create sequence s_user;
 
-alter sequence s_user owner to suppliers_portal;
 
 create sequence s_commercial_condition;
 
-alter sequence s_commercial_condition owner to suppliers_portal;
 
 create sequence s_product;
 
-alter sequence s_product owner to suppliers_portal;
 
 create sequence s_commercial_proposal;
 
-alter sequence s_commercial_proposal owner to suppliers_portal;
 
 create sequence s_entry_product_request;
 
-alter sequence s_entry_product_request owner to suppliers_portal;
 
 create sequence s_product_photo;
 
-alter sequence s_product_photo owner to suppliers_portal;
 
 create sequence s_proposal_conditions;
 
-alter sequence s_proposal_conditions owner to suppliers_portal;
 
 create sequence s_commercial_proposal_status_h;
 
-alter sequence s_commercial_proposal_status_h owner to suppliers_portal;
 
 create sequence s_product_instance;
 
-alter sequence s_product_instance owner to suppliers_portal;
 
 create sequence s_product_certificate;
 
-alter sequence s_product_certificate owner to suppliers_portal;
 
 create sequence s_reset_password_application;
 
-alter sequence s_reset_password_application owner to suppliers_portal;
 
 create sequence integration_status_h_id_seq;
 
-alter sequence integration_status_h_id_seq owner to suppliers_portal;
 
 create sequence s_organization;
 
-alter sequence s_organization owner to suppliers_portal;
 
 create sequence s_request_step_notification;
 
-alter sequence s_request_step_notification owner to suppliers_portal;
 
 create sequence s_enter_product_request_status_history;
 
-alter sequence s_enter_product_request_status_history owner to suppliers_portal;
 
