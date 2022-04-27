@@ -11,8 +11,8 @@ var RegistrationFormMapperInstance RegistrationFormMapper
 type RegistrationFormMapper struct {
 }
 
-func (r RegistrationFormMapper) Map(registrationForm *RegistrationForm) dto.RegistrationCommand {
-	var result = dto.RegistrationCommand{
+func (r RegistrationFormMapper) Map(registrationForm *RegistrationForm) dto.RegistrationDTO {
+	var result = dto.RegistrationDTO{
 		FormOfLawID:           registrationForm.FormOfLawID,
 		OrganizationPhone:     registrationForm.OrgPhone,
 		IINBIN:                registrationForm.IINBIN,

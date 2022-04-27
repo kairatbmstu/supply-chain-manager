@@ -12,7 +12,7 @@ var RegistrationServiceInstance RegistrationService
 type RegistrationService struct {
 }
 
-func (r RegistrationService) RegisterUser(regCommand dto.RegistrationCommand) (*dto.UserDTO, error) {
+func (r RegistrationService) RegisterUser(regCommand dto.RegistrationDTO) (*dto.UserDTO, error) {
 
 	userExist, err := repository.UserRepositoryInstance.FindByUsername(regCommand.Email)
 
@@ -40,7 +40,32 @@ func (r RegistrationService) RegisterUser(regCommand dto.RegistrationCommand) (*
 		return nil, err
 	}
 
-	var userDto = new(dto.UserDTO)
+	var userDto = dto.UserDTO{
+		Email:    regCommand.Email,
+		Username: regCommand.Email,
+		Password: regCommand.Password,
+	}
 
-	return userDto, nil
+	var organizationDto = dto.OrganizationDTO{
+		Bin:        regCommand.IINBIN,
+		NameRu:     regCommand.OrganizationName,
+		NameKz:     regCommand.OrganizationName,
+		NameEn:     regCommand.OrganizationName,
+		IsResident: regCommand.IsResident,
+		Blocked:    false,
+		CorpPhone:  regCommand.OrganizationPhone,
+		ContactFio: regCommand.ContactPersonFullname,
+		Website:    regCommand.OrganizationSite,
+		Gln:        regCommand.GLN,
+		IsStm:      regCommand.IsSTM,
+		IsNds:      regCommand.IsVAT,
+		IBAN:       "",
+		Bic:        regCommand.BIC,
+		KbeCode:    regCommand.KBE,
+		Address:    regCommand.OrgAddress,
+		FormOfLaw:  dto.FormOfLawDTO{},
+		KBE:        dto.KBEDTO{},
+	}
+
+	return &userDto, nil
 }

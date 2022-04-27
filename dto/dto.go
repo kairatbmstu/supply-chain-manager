@@ -1,9 +1,11 @@
 package dto
 
-type RegistrationCommand struct {
+type RegistrationDTO struct {
 	IsResident            bool
 	FormOfLawID           int
 	OrganizationPhone     string
+	OrganizationName      string
+	IBAN                  string
 	IINBIN                string
 	BIC                   string
 	AccountNumber         string
