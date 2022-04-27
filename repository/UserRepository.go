@@ -18,7 +18,7 @@ type UserRepository struct {
 
 func (c UserRepository) GetOne(id int) (*domain.User, error) {
 	user := new(domain.User)
-	sb := sqlbuilder.NewSelectBuilder()
+	sb := sqlbuilder.PostgreSQL.NewSelectBuilder()
 
 	sb.Select("id", "iin", "first_name", "middle_name",
 		"last_name", "phone", "username", "email", "password", "is_active",
@@ -56,7 +56,7 @@ func (c UserRepository) Create(user *domain.User) (*domain.User, error) {
 		return nil, err
 	}
 
-	ib := sqlbuilder.NewInsertBuilder()
+	ib := sqlbuilder.PostgreSQL.NewInsertBuilder()
 	ib.InsertInto("app_user")
 	ib.Cols("id", "iin", "first_name", "middle_name",
 		"last_name", "phone", "username", "email", "password", "is_active",
@@ -89,7 +89,7 @@ func (c UserRepository) GrantRoleToUser(user *domain.User, role domain.Role) (*d
 }
 
 func (c UserRepository) Update(user *domain.User) (*domain.User, error) {
-	ub := sqlbuilder.NewUpdateBuilder()
+	ub := sqlbuilder.PostgreSQL.NewUpdateBuilder()
 	query, args := ub.Update("app_user").
 		Set(
 			"visited = visited + 1",
@@ -108,7 +108,7 @@ func (c UserRepository) GetAll() ([]*domain.User, error) {
 
 func (c UserRepository) FindByUsername(username string) (*domain.User, error) {
 	user := new(domain.User)
-	sb := sqlbuilder.NewSelectBuilder()
+	sb := sqlbuilder.PostgreSQL.NewSelectBuilder()
 
 	sb.Select("id", "iin", "first_name", "middle_name",
 		"last_name", "phone", "username", "email", "password", "is_active",
@@ -124,6 +124,10 @@ func (c UserRepository) FindByUsername(username string) (*domain.User, error) {
 		return nil, err
 	}
 	defer rows.Close()
+	if !rows.Next() {
+		return nil, nil
+	}
+
 	err = rows.Scan(&user.ID, &user.IIN, &user.FirstName, &user.MiddleName, &user.Email,
 		&user.Password, &user.IsActive, &user.ActiveDirectoryLink, &user.RegDatetime,
 		&user.OtdelID, &user.OrganizationID, &user.AllowSelfRegistration)
@@ -136,11 +140,13 @@ func (c UserRepository) FindByUsername(username string) (*domain.User, error) {
 	}
 
 	return user, nil
+
+	return nil, nil
 }
 
 func (c UserRepository) FindByEmail(email string) (*domain.User, error) {
 	user := new(domain.User)
-	sb := sqlbuilder.NewSelectBuilder()
+	sb := sqlbuilder.PostgreSQL.NewSelectBuilder()
 
 	sb.Select("id", "iin", "first_name", "middle_name",
 		"last_name", "phone", "username", "email", "password", "is_active",
@@ -156,6 +162,10 @@ func (c UserRepository) FindByEmail(email string) (*domain.User, error) {
 		return nil, err
 	}
 	defer rows.Close()
+
+	if !rows.Next() {
+		return nil, nil
+	}
 	err = rows.Scan(&user.ID, &user.IIN, &user.FirstName, &user.MiddleName, &user.Email,
 		&user.Password, &user.IsActive, &user.ActiveDirectoryLink, &user.RegDatetime,
 		&user.OtdelID, &user.OrganizationID, &user.AllowSelfRegistration)
@@ -178,6 +188,9 @@ func (c UserRepository) nextID() (int, error) {
 	if err != nil {
 		log.Println("error  : ", err)
 		return 0, err
+	}
+	if !rows.Next() {
+		return 0, nil
 	}
 
 	err = rows.Scan(&id)

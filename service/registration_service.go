@@ -4,6 +4,7 @@ import (
 	"example.com/m/v2/dto"
 	"example.com/m/v2/errors"
 	"example.com/m/v2/repository"
+	"log"
 )
 
 var RegistrationServiceInstance RegistrationService
@@ -16,21 +17,25 @@ func (r RegistrationService) RegisterUser(regCommand dto.RegistrationCommand) (*
 	userExist, err := repository.UserRepositoryInstance.FindByUsername(regCommand.Email)
 
 	if err != nil {
+		log.Println("err : ", err)
 		return nil, err
 	}
 
 	if userExist != nil {
 		err = errors.NewError(errors.UserAlreadyExists)
+		log.Println("err : ", err)
 		return nil, err
 	}
 
 	userExist, err = repository.UserRepositoryInstance.FindByEmail(regCommand.Email)
 
 	if err != nil {
+		log.Println("err : ", err)
 		return nil, err
 	}
 
 	if userExist != nil {
+		log.Println("err : ", err)
 		err = errors.NewError(errors.UserAlreadyExists)
 		return nil, err
 	}

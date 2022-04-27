@@ -172,7 +172,7 @@ func (a *RegistrationFormValidator) validate(c *gin.Context, regForm *forms.Regi
 		a.Errors = append(a.Errors, "Password and ConfirmationPassword should be equal")
 	}
 
-	if len(regForm.Password) >= 8 {
+	if len(regForm.Password) < 8 {
 		flash.SetFlash(c, "ErrorPasswordFormat", "Password must contain more than 8 symbols")
 		a.Errors = append(a.Errors, "Password must contain more than 8 symbols")
 	}

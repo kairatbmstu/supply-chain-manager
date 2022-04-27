@@ -32,12 +32,14 @@ func (r RegistrationController) GetMainInfo(c *gin.Context) {
 	if strings.EqualFold(registrationForm.ResidentType, "resident") {
 		formoflawdtos, err = service.FormOfLawServiceInstance.FindResident()
 		if err != nil {
+			log.Println("error : ", err)
 			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
 			return
 		}
 	} else {
 		formoflawdtos, err = service.FormOfLawServiceInstance.FindNonResident()
 		if err != nil {
+			log.Println("error : ", err)
 			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
 			return
 		}
@@ -258,7 +260,9 @@ func (r RegistrationController) PostCompleteRegistration(c *gin.Context) {
 
 		if err != nil {
 			log.Println("error : ", err)
-			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{
+				"error: ": err.Error(),
+			})
 			return
 		}
 
@@ -290,18 +294,18 @@ func (r RegistrationController) PostEnterPassword(c *gin.Context) {
 		regForm.Password = enterPasswordForm.Password
 		regForm.ConfirmationPassword = enterPasswordForm.ConfirmationPassword
 
-		var regFormValidator RegistrationFormValidator
-		regFormValidator.validate(c, regForm)
-
-		if regFormValidator.hasErrors() {
-			c.Redirect(http.StatusFound, "/register/complete_registration")
-			return
-		}
-
 		err := saveSession(c, regForm)
 		if err != nil {
 			log.Println("error : ", err)
 			c.HTML(http.StatusInternalServerError, "error500.html", gin.H{})
+			return
+		}
+
+		var regFormValidator RegistrationFormValidator
+		regFormValidator.validate(c, regForm)
+
+		if !regFormValidator.hasErrors() {
+			c.Redirect(http.StatusFound, "/register/complete_registration")
 			return
 		}
 
