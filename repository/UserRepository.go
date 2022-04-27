@@ -140,8 +140,6 @@ func (c UserRepository) FindByUsername(username string) (*domain.User, error) {
 	}
 
 	return user, nil
-
-	return nil, nil
 }
 
 func (c UserRepository) FindByEmail(email string) (*domain.User, error) {
