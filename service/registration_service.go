@@ -67,5 +67,9 @@ func (r RegistrationService) RegisterUser(regCommand dto.RegistrationDTO) (*dto.
 		KBE:        dto.KBEDTO{},
 	}
 
+	//repository.OrganizationRepositoryInstance.FindByIBAN()
+	//
+	//repository.OrganizationRepositoryInstance.Create()
+
 	return &userDto, nil
 }
