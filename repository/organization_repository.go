@@ -19,6 +19,24 @@ type OrganizationQueryCriteria struct {
 type OrganizationRepository struct {
 }
 
+func (o OrganizationRepository) FindByGLN(gln string) (*domain.Organization, error) {
+	var criteria OrganizationQueryCriteria
+	criteria.GLN = gln
+	return o.FindByCriteria(criteria)
+}
+
+func (o OrganizationRepository) FindByBIN(bin string) (*domain.Organization, error) {
+	var criteria OrganizationQueryCriteria
+	criteria.BIN = bin
+	return o.FindByCriteria(criteria)
+}
+
+func (o OrganizationRepository) FindByIBAN(iban string) (*domain.Organization, error) {
+	var criteria OrganizationQueryCriteria
+	criteria.IBAN = iban
+	return o.FindByCriteria(criteria)
+}
+
 func (OrganizationRepository) FindByCriteria(criteria OrganizationQueryCriteria) (*domain.Organization, error) {
 	organization := new(domain.Organization)
 	sb := sqlbuilder.PostgreSQL.NewSelectBuilder()

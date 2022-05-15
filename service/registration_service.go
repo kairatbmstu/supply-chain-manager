@@ -1,6 +1,9 @@
 package service
 
 import (
+	"database/sql"
+	"example.com/m/v2/database"
+	"example.com/m/v2/domain"
 	"example.com/m/v2/dto"
 	"example.com/m/v2/errors"
 	"example.com/m/v2/repository"
@@ -67,9 +70,53 @@ func (r RegistrationService) RegisterUser(regCommand dto.RegistrationDTO) (*dto.
 		KBE:        dto.KBEDTO{},
 	}
 
-	//repository.OrganizationRepositoryInstance.FindByIBAN()
-	//
-	//repository.OrganizationRepositoryInstance.Create()
+	var organizationExist *domain.Organization
 
+	organizationExist, err = repository.OrganizationRepositoryInstance.FindByBIN(organizationDto.Bin)
+	if err != nil {
+		log.Println("err : ", err)
+		err = errors.NewError(errors.InternalServerError)
+		return nil, err
+	}
+	organizationExist, err = repository.OrganizationRepositoryInstance.FindByIBAN(organizationDto.IBAN)
+	if err != nil {
+		log.Println("err : ", err)
+		err = errors.NewError(errors.InternalServerError)
+		return nil, err
+	}
+	organizationExist, err = repository.OrganizationRepositoryInstance.FindByGLN(organizationDto.Gln)
+	if err != nil {
+		log.Println("err : ", err)
+		err = errors.NewError(errors.InternalServerError)
+		return nil, err
+	}
+
+	if organizationExist != nil {
+		log.Println("err : ", err)
+		err = errors.NewError(errors.OrganizationAlreadyExists)
+		return nil, err
+	}
+
+	tx, err := database.DB.Begin()
+	if err != nil {
+		log.Println("err : ", err)
+		err = errors.NewError(errors.InternalServerError)
+		return nil, err
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		log.Println("err : ", err)
+		err = errors.NewError(errors.InternalServerError)
+		return nil, err
+	}
 	return &userDto, nil
+}
+
+func (r RegistrationService) CreateOrganization(organization dto.OrganizationDTO, tx *sql.Tx) (*dto.OrganizationDTO, error) {
+	return nil, nil
+}
+
+func (r RegistrationService) CreateUser(user dto.UserDTO, tx *sql.Tx) (*dto.UserDTO, error) {
+	return nil, nil
 }

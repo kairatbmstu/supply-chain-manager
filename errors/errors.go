@@ -19,8 +19,10 @@ type FieldValueDTO struct {
 type ErrorType int
 
 const (
-	UserNotFound      ErrorType = 1
-	UserAlreadyExists ErrorType = 2
+	UserNotFound              ErrorType = 1
+	UserAlreadyExists         ErrorType = 2
+	OrganizationAlreadyExists ErrorType = 3
+	InternalServerError       ErrorType = 4
 )
 
 func NewError(errorType ErrorType) ErrorDTO {
