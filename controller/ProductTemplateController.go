@@ -18,11 +18,11 @@ func (p ProductTemplateController) GetUpdateForm(c *gin.Context) {
 }
 
 func (p ProductTemplateController) Create(c *gin.Context) {
-
+	c.Redirect(http.StatusFound, "/product-templates/get-details")
 }
 
 func (p ProductTemplateController) Update(c *gin.Context) {
-
+	c.Redirect(http.StatusFound, "/product-templates/get-details")
 }
 
 func (p ProductTemplateController) GetDetails(c *gin.Context) {
