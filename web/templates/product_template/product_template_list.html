@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Template List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Product Template List</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Item Name (Kazakh)</th>
+                    <th>Item Name (Russian)</th>
+                    <th>Item Name (English)</th>
+                    <th>Description (Kazakh)</th>
+                    <th>Description (Russian)</th>
+                    <th>Description (English)</th>
+                    <th>Barcode</th>
+                    <!-- Add more table headers for additional attributes -->
+                </tr>
+            </thead>
+            <tbody>
+                {{range .ProductTemplates}}
+                <tr>
+                    <td>{{.ItemNameKz}}</td>
+                    <td>{{.ItemNameRu}}</td>
+                    <td>{{.ItemNameEn}}</td>
+                    <td>{{.DescriptionKz}}</td>
+                    <td>{{.DescriptionRu}}</td>
+                    <td>{{.DescriptionEn}}</td>
+                    <td>{{.Barcode}}</td>
+                    <!-- Add more table cells for additional attributes -->
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

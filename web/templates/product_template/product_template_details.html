@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Product Details</h1>
+        <table class="table table-bordered mt-4">
+            <tbody>
+                <tr>
+                    <th>Item Name (Kazakh)</th>
+                    <td>{{.ItemNameKz}}</td>
+                </tr>
+                <tr>
+                    <th>Item Name (Russian)</th>
+                    <td>{{.ItemNameRu}}</td>
+                </tr>
+                <tr>
+                    <th>Item Name (English)</th>
+                    <td>{{.ItemNameEn}}</td>
+                </tr>
+                <tr>
+                    <th>Description (Kazakh)</th>
+                    <td>{{.DescriptionKz}}</td>
+                </tr>
+                <tr>
+                    <th>Description (Russian)</th>
+                    <td>{{.DescriptionRu}}</td>
+                </tr>
+                <tr>
+                    <th>Description (English)</th>
+                    <td>{{.DescriptionEn}}</td>
+                </tr>
+                <tr>
+                    <th>External ID</th>
+                    <td>{{.ExternalId}}</td>
+                </tr>
+                <tr>
+                    <th>Barcode</th>
+                    <td>{{.Barcode}}</td>
+                </tr>
+                <!-- Add more rows for the remaining fields here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

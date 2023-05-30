@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Product Template</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Create Product Template</h1>
+        <form action="/product-template/create" method="POST">
+            <div class="form-group">
+                <label for="itemNameKz">Item Name (Kazakh)</label>
+                <input type="text" class="form-control" id="itemNameKz" name="itemNameKz">
+            </div>
+            <div class="form-group">
+                <label for="itemNameRu">Item Name (Russian)</label>
+                <input type="text" class="form-control" id="itemNameRu" name="itemNameRu">
+            </div>
+            <div class="form-group">
+                <label for="itemNameEn">Item Name (English)</label>
+                <input type="text" class="form-control" id="itemNameEn" name="itemNameEn">
+            </div>
+            <div class="form-group">
+                <label for="descriptionKz">Description (Kazakh)</label>
+                <textarea class="form-control" id="descriptionKz" name="descriptionKz"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="descriptionRu">Description (Russian)</label>
+                <textarea class="form-control" id="descriptionRu" name="descriptionRu"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="descriptionEn">Description (English)</label>
+                <textarea class="form-control" id="descriptionEn" name="descriptionEn"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="externalId">External ID</label>
+                <input type="number" class="form-control" id="externalId" name="externalId">
+            </div>
+            <div class="form-group">
+                <label for="barcode">Barcode</label>
+                <input type="text" class="form-control" id="barcode" name="barcode">
+            </div>
+            <!-- Add more form fields for the remaining attributes here -->
+            
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
