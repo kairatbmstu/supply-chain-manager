@@ -30,3 +30,14 @@ type ProposalConditions struct {
 
 type CommercialProposalInfo struct {
 }
+
+type CommercialProposalStatus string
+
+const (
+	CommercialProposalStatus_Draft         string = "draft"
+	CommercialProposalStatus_ProcessingCM  string = "processing_cm"
+	CommercialProposalStatus_ApprovedByCM  string = "approved_by_cm"
+	CommercialProposalStatus_ProcessingRM  string = "processing_rm"
+	CommercialProposalStatus_ApprovedByRM  string = "approved_by_rm"
+	CommercialProposalStatus_FullyApproved string = "fully_approved"
+)

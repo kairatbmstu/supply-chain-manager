@@ -4,7 +4,6 @@ import (
 	"encoding/gob"
 	"log"
 
-	"example.com/m/v2/controller"
 	"example.com/m/v2/database"
 	"example.com/m/v2/dto"
 	"example.com/m/v2/forms"
@@ -36,29 +35,38 @@ func main() {
 	router.Static("web/js", "web/js")
 	router.LoadHTMLGlob("web/templates/**/*")
 
-	router.GET("/", controller.IndexControllerInstance.GetIndexPage)
-	router.GET("/login", controller.LoginControllerInstance.GetLoginPage)
-	router.POST("/login", controller.LoginControllerInstance.PostLogin)
-	router.GET("/logout", controller.LoginControllerInstance.Logout)
-	router.GET("/register/resident_type", controller.RegistrationControllerInstance.GetResidentType)
-	router.POST("/register/resident_type", controller.RegistrationControllerInstance.PostResidentType)
-	router.GET("/register/org_main_info", controller.RegistrationControllerInstance.GetMainInfo)
-	router.POST("/register/org_main_info", controller.RegistrationControllerInstance.PostOrgMainInfo)
+	var context = NewWebApplicationContext()
 
-	router.GET("/register/org_additional_info", controller.RegistrationControllerInstance.GetOrgAdditionalInfo)
-	router.POST("/register/org_additional_info", controller.RegistrationControllerInstance.PostOrgAdditionalInfo)
+	router.GET("/", context.IndexController.GetIndexPage)
+	router.GET("/login", context.LoginController.GetLoginPage)
+	router.POST("/login", context.LoginController.PostLogin)
+	router.GET("/logout", context.LoginController.Logout)
+	router.GET("/register/resident_type", context.RegistrationController.GetResidentType)
+	router.POST("/register/resident_type", context.RegistrationController.PostResidentType)
+	router.GET("/register/org_main_info", context.RegistrationController.GetMainInfo)
+	router.POST("/register/org_main_info", context.RegistrationController.PostOrgMainInfo)
 
-	router.GET("/register/contact_person_info", controller.RegistrationControllerInstance.GetContantPersonInfo)
-	router.POST("/register/contact_person_info", controller.RegistrationControllerInstance.PostContactPerson)
+	router.GET("/register/org_additional_info", context.RegistrationController.GetOrgAdditionalInfo)
+	router.POST("/register/org_additional_info", context.RegistrationController.PostOrgAdditionalInfo)
 
-	router.GET("/register/enter_password", controller.RegistrationControllerInstance.GetEnterPassword)
-	router.POST("/register/enter_password", controller.RegistrationControllerInstance.PostEnterPassword)
+	router.GET("/register/contact_person_info", context.RegistrationController.GetContantPersonInfo)
+	router.POST("/register/contact_person_info", context.RegistrationController.PostContactPerson)
 
-	router.GET("/register/complete_registration", controller.RegistrationControllerInstance.GetCompleteRegistration)
-	router.POST("/register/complete_registration", controller.RegistrationControllerInstance.PostCompleteRegistration)
+	router.GET("/register/enter_password", context.RegistrationController.GetEnterPassword)
+	router.POST("/register/enter_password", context.RegistrationController.PostEnterPassword)
 
-	router.GET("/register/waiting", controller.RegistrationControllerInstance.GetWaiting)
-	router.POST("/register/waiting", controller.RegistrationControllerInstance.PostWaiting)
+	router.GET("/register/complete_registration", context.RegistrationController.GetCompleteRegistration)
+	router.POST("/register/complete_registration", context.RegistrationController.PostCompleteRegistration)
+
+	router.GET("/register/waiting", context.RegistrationController.GetWaiting)
+	router.POST("/register/waiting", context.RegistrationController.PostWaiting)
+
+	router.GET("/product-templates/get-details", context.ProductTemplateController.GetDetails)
+	router.GET("/product-templates/get-create-form", context.ProductTemplateController.GetCreateForm)
+	router.POST("/product-templates/create", context.ProductTemplateController.Create)
+	router.GET("/product-templates/get-update-form", context.ProductTemplateController.GetUpdateForm)
+	router.POST("/product-templates/update", context.ProductTemplateController.Update)
+	router.GET("/product-templates/get-product-templates-list", context.ProductTemplateController.GetProductTemplatesList)
 
 	router.Run(":8080")
 }

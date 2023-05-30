@@ -3,18 +3,18 @@ package controller
 type CommercialConditionsController struct {
 }
 
-func (p CommercialConditionsController) CreateCommercialCondition() {
+func (p CommercialConditionsController) Create() {
 
 }
 
-func (p CommercialConditionsController) UpdateCommercialCondition() {
+func (p CommercialConditionsController) Update() {
 
 }
 
-func (p CommercialConditionsController) GetCommercialCondition() {
+func (p CommercialConditionsController) Get() {
 
 }
 
-func (p CommercialConditionsController) FindAllCommercialConditions() {
+func (p CommercialConditionsController) FindAll() {
 
 }
